@@ -1,5 +1,9 @@
 <!-- title: 法定货币汇率组件 -->
 <!-- name: acooly-sdk-exchangerate -->
+<!-- type: resources -->
+<!-- author: zhangpu -->
+<!-- date: 2021-05-35 -->
+
 法定货币汇率组件
 ====
 acooly-sdk-exchangerate
