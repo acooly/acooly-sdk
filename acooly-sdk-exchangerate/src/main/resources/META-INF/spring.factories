@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.acooly.sdk.exchangerate.ExchangeRateAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+cn.acooly.sdk.exchangerate.ExchangeInitializer
