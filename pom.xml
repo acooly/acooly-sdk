@@ -16,6 +16,7 @@
         <module>acooly-sdk-assemble</module>
         <module>acooly-sdk-exchangerate</module>
         <module>acooly-sdk-test</module>
+        <module>acooly-sdk-coinrate</module>
     </modules>
 
     <build>
