@@ -4,14 +4,12 @@
  * Copyright 2014 Acooly.cn, Inc. All rights reserved.
  *
  * @author zhangpu
- * @date 2021-05-27 23:39
+ * @date 2021-05-31 01:45
  */
-package cn.acooly.sdk.coinrate.enums;
+package cn.acooly.sdk.coinapi.enums;
 /**
- * 常用法币定义
- *
  * @author zhangpu
- * @date 2021-05-27 23:39
+ * @date 2021-05-31 01:45
  */
 
 import com.acooly.core.utils.enums.Messageable;
@@ -21,27 +19,23 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum DigitCurrency implements Messageable {
+public enum CoinApiProvider implements Messageable {
+
     /**
-     * 人民币
+     * 密封查
      */
-    usdt("usdt", "泰达币", "T", 1, 8),
-    btc("btc", "比特币", "B", 2, 8),
-    eth("eth", "以太坊", "E", 3, 2),
-    fil("fil", "文件币", "F", 4, 2);
+    mifengcha("mifengcha","密封查"),
+    /**
+     * 天行数据
+     */
+    tianapi("tianapi", "天行数据");
 
     private final String code;
     private final String message;
-    private final String symbol;
-    private final int numericCode;
-    private final int scale;
 
-    DigitCurrency(String code, String message, String symbol, int numericCode, int scale) {
+    CoinApiProvider(String code, String message) {
         this.code = code;
         this.message = message;
-        this.symbol = symbol;
-        this.numericCode = numericCode;
-        this.scale = scale;
     }
 
     public String getCode() {
@@ -64,7 +58,7 @@ public enum DigitCurrency implements Messageable {
 
     public static Map<String, String> mapping() {
         Map<String, String> map = new LinkedHashMap<String, String>();
-        for (DigitCurrency type : values()) {
+        for (CoinApiProvider type : values()) {
             map.put(type.getCode(), type.getMessage());
         }
         return map;
@@ -77,8 +71,8 @@ public enum DigitCurrency implements Messageable {
      * @return 枚举值码对应的枚举值。
      * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
      */
-    public static DigitCurrency find(String code) {
-        for (DigitCurrency status : values()) {
+    public static CoinApiProvider find(String code) {
+        for (CoinApiProvider status : values()) {
             if (status.getCode().equals(code)) {
                 return status;
             }
@@ -91,9 +85,9 @@ public enum DigitCurrency implements Messageable {
      *
      * @return 全部枚举值。
      */
-    public static List<DigitCurrency> getAll() {
-        List<DigitCurrency> list = new ArrayList<DigitCurrency>();
-        for (DigitCurrency status : values()) {
+    public static List<CoinApiProvider> getAll() {
+        List<CoinApiProvider> list = new ArrayList<CoinApiProvider>();
+        for (CoinApiProvider status : values()) {
             list.add(status);
         }
         return list;
@@ -106,7 +100,7 @@ public enum DigitCurrency implements Messageable {
      */
     public static List<String> getAllCode() {
         List<String> list = new ArrayList<String>();
-        for (DigitCurrency status : values()) {
+        for (CoinApiProvider status : values()) {
             list.add(status.code());
         }
         return list;

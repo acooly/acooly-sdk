@@ -6,11 +6,12 @@
  * @author zhangpu
  * @date 2021-06-03 14:34
  */
-package cn.acooly.sdk.coinrate.service;
+package cn.acooly.sdk.coinapi.service;
 
-import cn.acooly.sdk.coinrate.dto.Ticker;
-import cn.acooly.sdk.coinrate.enums.DigitCurrency;
+import cn.acooly.sdk.coinapi.dto.Ticker;
+import cn.acooly.sdk.coinapi.enums.DigitCurrency;
 import com.acooly.core.utils.lang.Named;
+import org.springframework.core.Ordered;
 
 /**
  * 币币汇率查询
@@ -18,7 +19,7 @@ import com.acooly.core.utils.lang.Named;
  * @author zhangpu
  * @date 2021-06-03 14:34
  */
-public interface CoinRateService extends Named {
+public interface CoinApiService extends Named, Ordered {
 
     /**
      * 币币兑换行情查询

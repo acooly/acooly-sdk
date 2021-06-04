@@ -6,7 +6,7 @@
  * @author zhangpu
  * @date 2021-06-03 14:43
  */
-package cn.acooly.sdk.coinrate.dto;
+package cn.acooly.sdk.coinapi.dto;
 
 import com.acooly.core.common.facade.DtoBase;
 import lombok.Getter;

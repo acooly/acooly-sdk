@@ -15,9 +15,23 @@
     <dependencies>
         <dependency>
             <groupId>cn.acooly</groupId>
+            <artifactId>acooly-sdk-exchangerate</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.acooly</groupId>
+            <artifactId>acooly-sdk-coinapi</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-assemble</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-test</artifactId>

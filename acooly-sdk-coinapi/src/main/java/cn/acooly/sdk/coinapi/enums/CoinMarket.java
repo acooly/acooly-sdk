@@ -4,12 +4,12 @@
  * Copyright 2014 Acooly.cn, Inc. All rights reserved.
  *
  * @author zhangpu
- * @date 2021-05-31 01:45
+ * @date 2021-06-04 14:17
  */
-package cn.acooly.sdk.coinrate.enums;
+package cn.acooly.sdk.coinapi.enums;
 /**
  * @author zhangpu
- * @date 2021-05-31 01:45
+ * @date 2021-06-04 14:17
  */
 
 import com.acooly.core.utils.enums.Messageable;
@@ -19,16 +19,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum CoinRateProvider implements Messageable {
-    /**
-     * 天行数据
-     */
-    tianapi("tianapi", "天行数据");
-
+public enum CoinMarket implements Messageable {
+    huobipro("huobipro", "火币网"),
+    binance("binance", "币安");
     private final String code;
     private final String message;
 
-    CoinRateProvider(String code, String message) {
+    CoinMarket(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -53,7 +50,7 @@ public enum CoinRateProvider implements Messageable {
 
     public static Map<String, String> mapping() {
         Map<String, String> map = new LinkedHashMap<String, String>();
-        for (CoinRateProvider type : values()) {
+        for (CoinMarket type : values()) {
             map.put(type.getCode(), type.getMessage());
         }
         return map;
@@ -66,8 +63,8 @@ public enum CoinRateProvider implements Messageable {
      * @return 枚举值码对应的枚举值。
      * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
      */
-    public static CoinRateProvider find(String code) {
-        for (CoinRateProvider status : values()) {
+    public static CoinMarket find(String code) {
+        for (CoinMarket status : values()) {
             if (status.getCode().equals(code)) {
                 return status;
             }
@@ -80,9 +77,9 @@ public enum CoinRateProvider implements Messageable {
      *
      * @return 全部枚举值。
      */
-    public static List<CoinRateProvider> getAll() {
-        List<CoinRateProvider> list = new ArrayList<CoinRateProvider>();
-        for (CoinRateProvider status : values()) {
+    public static List<CoinMarket> getAll() {
+        List<CoinMarket> list = new ArrayList<CoinMarket>();
+        for (CoinMarket status : values()) {
             list.add(status);
         }
         return list;
@@ -95,7 +92,7 @@ public enum CoinRateProvider implements Messageable {
      */
     public static List<String> getAllCode() {
         List<String> list = new ArrayList<String>();
-        for (CoinRateProvider status : values()) {
+        for (CoinMarket status : values()) {
             list.add(status.code());
         }
         return list;

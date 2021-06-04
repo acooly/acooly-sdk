@@ -6,9 +6,10 @@
  * @author zhangpu
  * @date 2021-06-03 14:25
  */
-package cn.acooly.sdk.coinrate.dto;
+package cn.acooly.sdk.coinapi.dto;
 
 import com.acooly.core.common.facade.DtoBase;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 
 /**
  * 行情数据
+ *
  * @author zhangpu
  * @date 2021-06-03 14:25
  */
@@ -31,45 +33,50 @@ public class Ticker extends DtoBase {
     private String symbol;
 
     /**
-     * 24小时交易额
+     * 24小时交易金额额
      */
-    private BigDecimal volume;
-    /**
-     * 24小时成交笔数
-     */
-    private int count;
+    @JsonProperty("volume")
+    private BigDecimal baseVolume;
 
     /**
      * 24小时成交数量（币数量）
      */
-    private BigDecimal amount;
+    @JsonProperty("amount")
+    private BigDecimal quoteVolume;
+
+    /**
+     * 24小时成交笔数
+     */
+    private BigDecimal count;
 
     /**
      * 24小时最低价
      */
-    private BigDecimal low;
+    @JsonProperty("low")
+    private BigDecimal lowPrice;
 
     /**
      * 24小时最高价
      */
-    private BigDecimal high;
+    @JsonProperty("high")
+    private BigDecimal highPrice;
 
     /**
      * 收盘价和最新成交价
      */
-    private BigDecimal close;
+    @JsonProperty("close")
+    private BigDecimal lastPrice;
 
     /**
      * 24小时前开盘价
      */
-    private BigDecimal open;
+    @JsonProperty("open")
+    private BigDecimal openPrice;
 
     /**
      * 交易记录时间
      */
     private Date time;
-
-
 
 
 }

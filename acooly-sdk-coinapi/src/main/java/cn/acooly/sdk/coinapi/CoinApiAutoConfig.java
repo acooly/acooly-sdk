@@ -1,4 +1,4 @@
-package cn.acooly.sdk.coinrate;
+package cn.acooly.sdk.coinapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Configuration;
  * @author zhangpu@acooly.cn
  */
 @Configuration
-@EnableConfigurationProperties({CoinRateProperties.class})
-@ConditionalOnProperty(value = "acooly.sdk.coinrate.enable", matchIfMissing = true)
-@ComponentScan(basePackages = "cn.acooly.sdk.coinrate")
-public class CoinRateAutoConfig {
+@EnableConfigurationProperties({CoinApiProperties.class})
+@ConditionalOnProperty(value = "acooly.sdk.coinapi.enable", matchIfMissing = true)
+@ComponentScan(basePackages = "cn.acooly.sdk.coinapi")
+public class CoinApiAutoConfig {
 
     @Autowired
-    private CoinRateProperties coinRateProperties;
+    private CoinApiProperties coinApiProperties;
 
 
 }
