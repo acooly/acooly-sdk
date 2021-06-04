@@ -63,11 +63,11 @@ public class CoinApiProperties {
         /**
          * 连接超时时长(秒)
          */
-        private int connTimeout = 2;
+        private int connTimeout = 10;
         /**
          * 读取超时时长(秒)
          */
-        private int readTimeout = 2;
+        private int readTimeout = 5;
 
 
         public Gateway() {
