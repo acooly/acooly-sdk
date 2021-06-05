@@ -20,7 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 public enum CoinApiErrors implements Messageable {
-    NETWORK_ERROR("NETWORK_ERROR", "网络异常");
+    NETWORK_ERROR("NETWORK_ERROR", "网络异常"),
+
+    DATA_PARSE_ERROR("DATA_PARSE_ERROR","解析错误");
+
     private final String code;
     private final String message;
 

@@ -4,7 +4,7 @@
 <!-- author: zhangpu -->
 <!-- date: 2021-06-04 -->
 
-法定货币汇率组件
+加密货币数据组件
 ====
 acooly-sdk-coinapi
 ----
@@ -60,6 +60,8 @@ acooly.sdk.coinapi.tianapi.readTimeout=5
 
 ### 接口及代码
 
+#### 币币行情（汇率）
+
 本组件提供汇率的实时查询，请在Spring容器注入`CoinApiService`接口直接使用。组件内集成多个提供方的数据来源实现，并统一依次获得成功为止则返回汇率数据。
 
 ```java
@@ -93,11 +95,66 @@ public interface CoinApiService extends Named, Ordered {
 }
 ```
 
+#### Fil全网汇总数据
+
+提供Fil挖矿的全网基础数据查询，数据主要包括：
+
+* 区块高度 : 820,212
+* 最新区块时间 : 1分6秒前
+* 全网有效算力 : 6.042 EiB
+* 活跃矿工数 : 2414
+* 每区块奖励 : 25.4389 FIL
+* 24h平均挖矿收益 : 0.0566 FIL/TiB
+* 近24h产出量 : 356,964 FIL
+* 当前扇区质押量 : 0.2259 FIL/32GiB
+* FIL质押量 : 79,768,625 FIL
+* 24h消息数 : 1,573,665
+* FIL流通量 : 130,974,673 FIL
+* 平均区块间隔 : 30.16 秒
+* 平均每高度区块数量 : 4.85
+* 新增算力成本 : 7.76 FIL/TiB
+* 当前基础费率 : 0.47 nanoFIL
+* FIL销毁量 : 26,087,446 FIL
+* FIL总供给量 : 2,000,000,000 FIL
+* FIL流通率 : 6.55%
+* 最新价格 : $ 88.51
+
+接口：
+
+```java
+/**
+ * FIL全网数据服务
+ *
+ * @author zhangpu
+ * @date 2021-06-05 23:53
+ */
+public interface FileCoinNetworkService {
+
+    /**
+     * 全网汇总数据
+     *
+     * @return
+     */
+    FileCoinNetworkInfo overview();
+
+}
+```
+
+>Spring容器内注入该接口即可使用。
+
+
+
 ## 扩展
 
 如果集成项目希望自己扩展数据提供方，可以在目标集成工程内实现`CoinApiService`接口，并通过`@Component`注入到Spring容器中，及可用。
 
 ## changelog
+
+### 5.0.0-SNAPSHOT.20210606
+
+2021-06-06
+
+* 提供基于数据抓取的FIL全网基础数据查询
 
 ### 5.0.0-SNAPSHOT.20210604
 
