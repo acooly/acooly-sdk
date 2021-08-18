@@ -38,7 +38,10 @@ import java.util.concurrent.TimeUnit;
 public class ExchangeRateServiceErgImpl implements ExchangeRateService {
 
     private static final String EXCHANGE_RESULT_CACHE_KEY = "EX_RESULT_CACHE";
-    //ExchangeRates支持的货币
+
+    /**
+     * ExchangeRates支持的货币
+     */
     private static List<LegalCurrency> acceptRatesCurrency = new ArrayList<>(LegalCurrency.getAll().size());
 
     static {
@@ -59,7 +62,7 @@ public class ExchangeRateServiceErgImpl implements ExchangeRateService {
     private final String defaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36";
     private final String domain = "https://cn.exchange-rates.org";
     private int cacheTimeoutSeconds = 2 * 60;
-    Cache<String, BigDecimal> cache = Caffeine.newBuilder()
+    Cache<String, Object> cache = Caffeine.newBuilder()
             .expireAfterWrite(this.cacheTimeoutSeconds, TimeUnit.SECONDS)
             .maximumSize(100).build();
 
@@ -71,8 +74,27 @@ public class ExchangeRateServiceErgImpl implements ExchangeRateService {
         System.out.println(money);
     }
 
+    /**
+     * 常用货币汇率列表
+     *
+     * @param currency
+     * @return
+     */
     @Override
     public ExchangeRates rates(LegalCurrency currency) {
+        String key = getRatesCacheKey(currency);
+        ExchangeRates money = (ExchangeRates) cache.getIfPresent(key);
+        if (money == null) {
+            money = doExchangeRates(currency);
+            if (money != null) {
+                cache.put(key, money);
+            }
+        }
+        return money;
+    }
+
+
+    public ExchangeRates doExchangeRates(LegalCurrency currency) {
 
         if (!acceptRatesCurrency.contains(currency)) {
             throw new BusinessException(CommonErrorCodes.UNSUPPORTED_ERROR);
@@ -132,7 +154,7 @@ public class ExchangeRateServiceErgImpl implements ExchangeRateService {
     @Override
     public BigDecimal rate(LegalCurrency from, LegalCurrency to) {
         String key = getRateCacheKey(from, to);
-        BigDecimal money = cache.getIfPresent(key);
+        BigDecimal money = (BigDecimal) cache.getIfPresent(key);
         if (money == null) {
             money = doExchange(from, to);
             if (money != null) {
@@ -144,6 +166,10 @@ public class ExchangeRateServiceErgImpl implements ExchangeRateService {
 
     protected String getRateCacheKey(LegalCurrency from, LegalCurrency to) {
         return EXCHANGE_RESULT_CACHE_KEY + ":" + from.code() + ":" + to.code();
+    }
+
+    protected String getRatesCacheKey(LegalCurrency from) {
+        return EXCHANGE_RESULT_CACHE_KEY + ":" + from.code();
     }
 
     protected BigDecimal doExchange(LegalCurrency from, LegalCurrency to) {
