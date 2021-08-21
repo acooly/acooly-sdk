@@ -8,12 +8,10 @@
  */
 package cn.acooly.sdk.filecoin;
 
-import cn.acooly.sdk.filecoin.transport.JsonRpcHttpTransport;
 import cn.acooly.sdk.filecoin.rpclient.FileCoinChain;
 import cn.acooly.sdk.filecoin.rpclient.message.ChainGetBlockMessagesRpcResponse;
 import cn.acooly.sdk.filecoin.rpclient.message.ChainGetTipSetByHeightRpcResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -23,18 +21,7 @@ import org.junit.Test;
 @Slf4j
 public class FileCoinChainTest extends FileCoinRpcBaseTest {
 
-    private static FileCoinChain fileCoinChain;
-
-    @BeforeClass
-    public static void init() {
-        FilecoinSdkProperties filecoinSdkProperties = new FilecoinSdkProperties();
-        filecoinSdkProperties.getGateway().setToken(GATEWAY_TOKEN);
-        filecoinSdkProperties.getGateway().setUrl(GATEWAY_URL);
-        transport = new JsonRpcHttpTransport(filecoinSdkProperties);
-        fileCoinChain = new FileCoinChain(transport);
-        log.info("完成初始化: {}", filecoinSdkProperties.getGateway());
-    }
-
+    private static FileCoinChain fileCoinChain = new FileCoinChain(transport);
 
     /**
      * 测试: 获取区块高度
@@ -56,7 +43,7 @@ public class FileCoinChainTest extends FileCoinRpcBaseTest {
 
     @Test
     public void testChainGetBlockMessages() {
-        String cid = "bafy2bzacedl6fzadocccxqxdi63u3vr74jcawk3m6qatpxwpzhttmlff6cnw6";
+        String cid = "bafy2bzaced6jjnovcrjjd7hwdr2ywr7nkr4o2ui3oivahib57bdrya3ge2og2";
         ChainGetBlockMessagesRpcResponse.ChainGetBlockMessages chainGetBlockMessages
                 = fileCoinChain.chainGetBlockMessages(cid);
         log.info("ChainGetBlockMessages cid:{}, result: {}", cid, chainGetBlockMessages);
