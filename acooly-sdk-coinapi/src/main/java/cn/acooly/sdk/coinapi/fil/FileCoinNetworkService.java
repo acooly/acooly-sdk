@@ -13,7 +13,9 @@ package cn.acooly.sdk.coinapi.fil;
  *
  * @author zhangpu
  * @date 2021-06-05 23:53
+ * @see cn.acooly.sdk.coinapi.explorer.CoinExplorer
  */
+@Deprecated
 public interface FileCoinNetworkService {
 
     /**

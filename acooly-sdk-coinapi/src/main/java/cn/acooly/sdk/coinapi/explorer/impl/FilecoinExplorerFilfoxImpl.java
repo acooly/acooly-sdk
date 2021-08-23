@@ -4,13 +4,14 @@
  * Copyright 2014 Acooly.cn, Inc. All rights reserved.
  *
  * @author zhangpu
- * @date 2021-06-06 00:18
+ * @date 2021-08-23 10:17
  */
-package cn.acooly.sdk.coinapi.fil.impl;
+package cn.acooly.sdk.coinapi.explorer.impl;
 
 import cn.acooly.sdk.coinapi.enums.CoinApiErrors;
-import cn.acooly.sdk.coinapi.fil.FileCoinNetworkInfo;
-import cn.acooly.sdk.coinapi.fil.FileCoinNetworkService;
+import cn.acooly.sdk.coinapi.enums.DigitCurrency;
+import cn.acooly.sdk.coinapi.explorer.AbstractCoinExplorer;
+import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.JsonMapper;
@@ -23,19 +24,18 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 /**
- * filfox 抓取数据实现
+ * FIL浏览器 from filfox.info
  *
  * @author zhangpu
- * @date 2021-06-06 00:18
- * @see cn.acooly.sdk.coinapi.explorer.impl.FilecoinExplorerFilfoxImpl
+ * @date 2021-08-23 10:17
  */
 @Slf4j
 @Component
-@Deprecated
-public class FilFoxFileCoinNetworkService implements FileCoinNetworkService {
+public class FilecoinExplorerFilfoxImpl extends AbstractCoinExplorer<FilecoinOverview> {
+
 
     @Override
-    public FileCoinNetworkInfo overview() {
+    protected FilecoinOverview doBrowser() {
         try {
             Document doc = Jsoup.connect("https://filfox.info/en").get();
             Elements elements = doc.select("div.flex.items-center.rounded-sm.bg-background > div");
@@ -53,7 +53,7 @@ public class FilFoxFileCoinNetworkService implements FileCoinNetworkService {
                     title = etitle.child(0).text();
                 }
                 String key = handleKey(title);
-                String value = handleValue(e.child(1).text());
+                String value = handleValueToNumber(e.child(1).text());
                 sb.append("\"").append(key).append("\":").append(value);
                 if (i < elements.size() - 1) {
                     sb.append(",");
@@ -62,7 +62,7 @@ public class FilFoxFileCoinNetworkService implements FileCoinNetworkService {
             sb.append("}");
             String json = sb.toString();
             log.info("FilFox Overview: {}", json);
-            FileCoinNetworkInfo info = JsonMapper.nonDefaultMapper().fromJson(json, FileCoinNetworkInfo.class);
+            FilecoinOverview info = JsonMapper.nonDefaultMapper().fromJson(json, FilecoinOverview.class);
             return info;
         } catch (Exception e) {
             log.warn("FilFox 全网数据解析 错误: {}", e.getMessage());
@@ -70,7 +70,9 @@ public class FilFoxFileCoinNetworkService implements FileCoinNetworkService {
         }
     }
 
-    private String handleKey(String title) {
+
+    @Override
+    protected String handleKey(String title) {
         String key = Strings.trimToEmpty(title);
         if (Strings.startsWith(key, "24h")) {
             key = Strings.replace(key, "24h", "period");
@@ -80,9 +82,10 @@ public class FilFoxFileCoinNetworkService implements FileCoinNetworkService {
         return key;
     }
 
-    private String handleValue(String value) {
-        String val = Strings.trimToEmpty(value);
-        val = Strings.replaceAll(val, "[^0-9.]", "");
-        return val;
+    @Override
+    public DigitCurrency coin() {
+        return DigitCurrency.fil;
     }
+
+
 }

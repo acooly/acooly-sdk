@@ -6,25 +6,23 @@
  * @author zhangpu
  * @date 2021-06-05 23:55
  */
-package cn.acooly.sdk.coinapi.fil;
+package cn.acooly.sdk.coinapi.explorer.domain;
 
-import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
+import com.acooly.core.common.facade.InfoBase;
 import lombok.Data;
 import lombok.ToString;
 
 import java.math.BigDecimal;
 
 /**
- * 已迁移整合
+ * Filecoin 全网数据
  *
  * @author zhangpu
  * @date 2021-06-05 23:55
- * @see FilecoinOverview
  */
 @Data
 @ToString
-@Deprecated
-public class FileCoinNetworkInfo {
+public class FilecoinOverview extends InfoBase {
 
     /**
      * 区块高度
