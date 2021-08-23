@@ -13,6 +13,11 @@ public class CoinApiProperties {
     private boolean enable = true;
 
     /**
+     * 数字货币浏览器配置
+     */
+    private Explorer explorer = new Explorer();
+
+    /**
      * 缓存配置
      */
     private Cache cache = new Cache();
@@ -40,6 +45,11 @@ public class CoinApiProperties {
          * 缓存超时时长(秒)，默认2分钟
          */
         private long timeout = 2 * 60;
+
+        /**
+         * 缓存大小
+         */
+        private int size = 20;
     }
 
 
@@ -78,6 +88,11 @@ public class CoinApiProperties {
             this.accessKey = accessKey;
             this.secretKey = secretKey;
         }
+    }
+
+    @Data
+    public static class Explorer {
+        private Cache cache = new Cache();
     }
 
 }

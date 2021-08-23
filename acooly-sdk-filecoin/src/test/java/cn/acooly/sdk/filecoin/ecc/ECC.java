@@ -97,16 +97,16 @@ public class ECC {
         return cipher.doFinal(data);
     }
 
-    private static String byteToAddress(byte[] pub) {
-        Blake2b.Digest digest = Blake2b.Digest.newInstance(20);
-        String hash = HexUtil.encodeHexStr(digest.digest(pub));
-        //将得到的blake2哈希值前添加0x01
-        String pubKeyHash = "01" + HexUtil.encodeHexStr(digest.digest(pub));
-        //用blake2b算法计算4位校验和
-        Blake2b.Digest blake2b3 = Blake2b.Digest.newInstance(4);
-        String checksum = HexUtil.encodeHexStr(blake2b3.digest(HexUtil.decodeHex(pubKeyHash)));
-        //Base32编码
-        return "f1" + Base32.encode(HexUtil.decodeHex(hash + checksum)).toLowerCase();
-    }
+//    private static String byteToAddress(byte[] pub) {
+//        Blake2b.Digest digest = Blake2b.Digest.newInstance(20);
+//        String hash = HexUtil.encodeHexStr(digest.digest(pub));
+//        //将得到的blake2哈希值前添加0x01
+//        String pubKeyHash = "01" + HexUtil.encodeHexStr(digest.digest(pub));
+//        //用blake2b算法计算4位校验和
+//        Blake2b.Digest blake2b3 = Blake2b.Digest.newInstance(4);
+//        String checksum = HexUtil.encodeHexStr(blake2b3.digest(HexUtil.decodeHex(pubKeyHash)));
+//        //Base32编码
+//        return "f1" + Base32.encode(HexUtil.decodeHex(hash + checksum)).toLowerCase();
+//    }
 
 }
