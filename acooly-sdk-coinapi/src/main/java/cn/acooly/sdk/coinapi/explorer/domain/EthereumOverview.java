@@ -49,6 +49,11 @@ public class EthereumOverview extends InfoBase {
     private String avgBlockTime;
 
     /**
+     * 每秒交易量，例如：13.7 笔/s
+     */
+    private String tps;
+
+    /**
      * 平均手续费（$ 16.89 /笔）
      * 美元
      */

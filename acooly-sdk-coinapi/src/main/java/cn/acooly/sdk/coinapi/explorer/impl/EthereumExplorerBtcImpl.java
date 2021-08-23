@@ -79,6 +79,15 @@ public class EthereumExplorerBtcImpl extends AbstractCoinExplorer<EthereumOvervi
         return DigitCurrency.eth;
     }
 
+
+    @Override
+    protected String handleKey(String title) {
+        if (Strings.equalsIgnoreCase(title, "TPS")) {
+            return "tps";
+        }
+        return super.handleKey(title);
+    }
+
     protected String handleValue(String key, String value) {
         if (Strings.equalsIgnoreCase(key, "Difficulty")) {
             return parseDifficulty(value);

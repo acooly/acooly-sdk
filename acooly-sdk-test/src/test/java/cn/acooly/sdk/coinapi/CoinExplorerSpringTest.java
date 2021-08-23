@@ -8,6 +8,7 @@
  */
 package cn.acooly.sdk.coinapi;
 
+import cn.acooly.sdk.coinapi.explorer.CoinExplorer;
 import cn.acooly.sdk.coinapi.explorer.ExplorerCacheManager;
 import cn.acooly.sdk.coinapi.explorer.domain.BitcoinOverview;
 import cn.acooly.sdk.coinapi.explorer.domain.EthereumOverview;
@@ -17,6 +18,7 @@ import cn.acooly.sdk.coinapi.explorer.impl.EthereumExplorerBtcImpl;
 import cn.acooly.sdk.coinapi.explorer.impl.FilecoinExplorerFilfoxImpl;
 import cn.acooly.sdk.coinapi.fil.FileCoinNetworkInfo;
 import cn.acooly.sdk.coinapi.fil.impl.FilFoxFileCoinNetworkService;
+import cn.acooly.sdk.test.NoWebTestBase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,17 +28,17 @@ import org.junit.Test;
  * @date 2021-08-23 10:28
  */
 @Slf4j
-public class CoinExplorerTest {
+public class CoinExplorerSpringTest extends NoWebTestBase {
 
 
-    private EthereumExplorerBtcImpl ethExplorerBtc = new EthereumExplorerBtcImpl();
+    private CoinExplorer<EthereumOverview> ethExplorerBtc = new EthereumExplorerBtcImpl();
     private BitcoinExplorerBtcImpl bitcoinExplorerBtc = new BitcoinExplorerBtcImpl();
     private FilecoinExplorerFilfoxImpl filecoinExplorerFilfox = new FilecoinExplorerFilfoxImpl();
 
     @Before
     public void init() {
         ExplorerCacheManager explorerCacheManager = new ExplorerCacheManager();
-        ethExplorerBtc.setExplorerCacheManager(explorerCacheManager);
+//        ethExplorerBtc.setExplorerCacheManager(explorerCacheManager);
         bitcoinExplorerBtc.setExplorerCacheManager(explorerCacheManager);
         filecoinExplorerFilfox.setExplorerCacheManager(explorerCacheManager);
     }

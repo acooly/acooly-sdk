@@ -14,6 +14,7 @@ acooly-sdk-coinapi
 通过第三方借口或数据，提供实时常用的加密数字货币相关的数据接口能力。目前包括：
 
 * 行情数据（ticker）：提供币币汇率行情的实时查询。
+* 数字火币浏览器：目前支持BTC,ETH和FIL
 
 ## 集成
 
@@ -32,9 +33,10 @@ acooly-sdk-coinapi
 
 ## 参数及配置
 
->注意：所有的参数只有提供方的apiKey(accessKey)是必须配置的，请在启动组件前，在对应的提供方注册获得。
+> 注意：所有的参数只有提供方的apiKey(accessKey)是必须配置的，请在启动组件前，在对应的提供方注册获得。
 
 ```ini
+## -------- 行情数据（ticker）配置 ------------
 # [可选] 组件开关
 acooly.sdk.coinapi.enable=true
 # [可选] 缓存配置（单位秒）
@@ -56,6 +58,15 @@ acooly.sdk.coinapi.tianapi.accessKey=asdfasdfasdf
 ## [可选] 超时时间配置（秒）
 acooly.sdk.coinapi.tianapi.connTimeout=10
 acooly.sdk.coinapi.tianapi.readTimeout=5
+
+# ------- 数字货币浏览器配置 ------------
+## [可选] 浏览器缓存开关
+acooly.sdk.coinapi.explorer.cache.enable=true
+## [可选] 浏览器缓存时间（秒）
+acooly.sdk.coinapi.explorer.cache.timeout=120
+## [可选] 浏览器缓存数量（支持多少种币）
+acooly.sdk.coinapi.explorer.cache.size=20
+
 ```
 
 ### 接口及代码
@@ -95,7 +106,23 @@ public interface CoinApiService extends Named, Ordered {
 }
 ```
 
-#### Fil全网汇总数据
+#### 数字货币浏览器
+
+查询数字货币的全网数据，目前支持btc,eth和fil。请直接注入服务`CoinExplorerService`
+
+核心接口如下：
+
+```java
+public class CoinExplorerService {
+    BitcoinOverview btc();
+
+    EthereumOverview eth();
+
+    FilecoinOverview fil();
+}
+```
+
+#### Fil全网汇总数据 (已作废)
 
 提供Fil挖矿的全网基础数据查询，数据主要包括：
 
@@ -140,9 +167,7 @@ public interface FileCoinNetworkService {
 }
 ```
 
->Spring容器内注入该接口即可使用。
-
-
+> Spring容器内注入该接口即可使用。
 
 ## 扩展
 
