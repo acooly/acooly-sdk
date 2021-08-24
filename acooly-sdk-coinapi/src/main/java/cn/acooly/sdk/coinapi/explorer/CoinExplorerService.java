@@ -58,10 +58,15 @@ public class CoinExplorerService implements ApplicationContextAware, Initializin
         }
         T overview = null;
         for (CoinExplorer coinExplorer : coinExplorers) {
-            overview = (T) coinExplorer.browse();
-            if (overview != null) {
-                break;
+            try {
+                overview = (T) coinExplorer.browse();
+                if (overview != null) {
+                    break;
+                }
+            } catch (Exception e) {
+                // ig
             }
+
         }
         return overview;
     }
