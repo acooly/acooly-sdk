@@ -9,12 +9,14 @@
 package cn.acooly.sdk.coinapi.explorer;
 
 import cn.acooly.sdk.coinapi.enums.DigitCurrency;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.core.Ordered;
 
 /**
  * @author zhangpu
  * @date 2021-08-21 09:52
  */
-public interface CoinExplorer<T> {
+public interface CoinExplorer<T> extends Ordered {
 
     /**
      * 全网数据

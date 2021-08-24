@@ -20,6 +20,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,6 +37,20 @@ public class CoinExplorerService implements ApplicationContextAware, Initializin
     protected ApplicationContext applicationContext;
     protected Map<DigitCurrency, List<CoinExplorer>> container = Maps.newHashMap();
 
+
+    public BitcoinOverview btc() {
+        return overview(DigitCurrency.btc);
+    }
+
+    public EthereumOverview eth() {
+        return overview(DigitCurrency.eth);
+    }
+
+    public FilecoinOverview fil() {
+        return overview(DigitCurrency.fil);
+    }
+
+
     public <T> T overview(DigitCurrency digitCurrency) {
         List<CoinExplorer> coinExplorers = container.get(digitCurrency);
         if (Collections3.isEmpty(coinExplorers)) {
@@ -51,19 +66,6 @@ public class CoinExplorerService implements ApplicationContextAware, Initializin
         return overview;
     }
 
-    public BitcoinOverview btc() {
-        return overview(DigitCurrency.btc);
-    }
-
-
-    public EthereumOverview eth() {
-        return overview(DigitCurrency.eth);
-    }
-
-    public FilecoinOverview fil() {
-        return overview(DigitCurrency.fil);
-    }
-
     @Override
     public void afterPropertiesSet() throws Exception {
         Map<String, CoinExplorer> coinExplorers = this.applicationContext.getBeansOfType(CoinExplorer.class);
@@ -74,6 +76,11 @@ public class CoinExplorerService implements ApplicationContextAware, Initializin
                 container.put(coinExplorer.coin(), subCoinExplorers);
             }
             subCoinExplorers.add(coinExplorer);
+        }
+
+        // 排序处理
+        for (List<CoinExplorer> coinExplorersList : container.values()) {
+            AnnotationAwareOrderComparator.sort(coinExplorersList);
         }
     }
 

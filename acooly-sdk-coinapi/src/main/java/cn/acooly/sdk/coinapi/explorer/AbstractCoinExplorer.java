@@ -9,10 +9,10 @@
 package cn.acooly.sdk.coinapi.explorer;
 
 import cn.acooly.sdk.coinapi.enums.DigitCurrency;
-import com.acooly.core.common.facade.InfoBase;
 import com.acooly.core.utils.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 
 /**
  * @author zhangpu
@@ -69,4 +69,15 @@ public abstract class AbstractCoinExplorer<T> implements CoinExplorer {
         val = Strings.replaceAll(val, "[^0-9.]", "");
         return val;
     }
+
+    /**
+     * 该有优先级只应用于相同币种的多个实现的排序
+     *
+     * @return
+     */
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
+
 }
