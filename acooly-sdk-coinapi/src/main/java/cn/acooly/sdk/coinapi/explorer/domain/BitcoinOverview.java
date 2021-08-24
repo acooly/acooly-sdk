@@ -57,9 +57,9 @@ public class BitcoinOverview extends InfoBase {
     private String earningsTfpps;
 
     /**
-     * 平均出块时间（min 分钟）
+     * 每秒交易量，例如：13.7 笔/s
      */
-//    private String averageBlockInterval;
+    private String tps;
 
 
     /**

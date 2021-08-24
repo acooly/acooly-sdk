@@ -78,6 +78,15 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
         return DigitCurrency.btc;
     }
 
+    @Override
+    protected String handleKey(String title) {
+        String key = super.handleKey(title);
+        if (Strings.equalsIgnoreCase("24HAvgTxrate", key)) {
+            key = "tps";
+        }
+        return key;
+    }
+
     protected String handleValue(String key, String value) {
         if (Strings.equalsIgnoreCase(key, "Difficulty")) {
             return parseDifficulty(value);
