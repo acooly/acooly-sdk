@@ -59,7 +59,7 @@ public class BitcoinOverview extends InfoBase {
     /**
      * 平均出块时间（min 分钟）
      */
-    private String averageBlockInterval;
+//    private String averageBlockInterval;
 
 
     /**
