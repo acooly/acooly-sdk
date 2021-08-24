@@ -54,6 +54,12 @@ public class CoinExplorerLocalTest {
         log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
     }
 
+    @Test
+    public void testBitcoinOverview() {
+        BitcoinOverview bitcoinOverview = bitcoinExplorerBtc.browse();
+        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
+    }
+
 
     @Test
     public void testNewFilecoinOverview() {

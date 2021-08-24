@@ -103,7 +103,8 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
 
     protected String parseNextDifficulty(String value) {
         // (+8.91%) 16.94 T
-        return "\"" + Strings.substringBetween(value, "(", ")") + "\"";
+        return handleValueToNumber(Strings.substringAfterLast(value,")"));
+//        return "\"" + Strings.substringBetween(value, "(", ")") + "\"";
     }
 
     protected String parseDatetoNextDifficulty(String value) {

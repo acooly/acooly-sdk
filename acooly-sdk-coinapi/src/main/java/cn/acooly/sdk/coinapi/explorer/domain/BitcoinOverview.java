@@ -37,7 +37,7 @@ public class BitcoinOverview extends InfoBase {
     private BigDecimal difficulty;
 
     /**
-     * 预测下次难度涨幅比例
+     * 预测下次难度(T)
      */
     private String expectedNextDifficulty;
 
