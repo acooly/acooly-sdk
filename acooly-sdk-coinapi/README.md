@@ -178,9 +178,10 @@ public interface FileCoinNetworkService {
 ### 5.0.0-SNAPSHOT.20210824
 
 * 2021-08-18 - 1、exchangerate网站已改版，更新获取数据的逻辑 2、完善rates方法 - [lilin] 545c1bc
-* 2021-08-23 - 完成CoinExplorerService整合服务的开发，各币种可方便的直接调用，请在目标工程直接注入`CoinExplorerService`服务使用即可。 - [zhangpu] ae400e8
-* 2021-08-23 - 基于新的数字货币浏览器查询框架，开发了BTC和ETH的全网数据查询SDK封装，迁移原fil独立全网数据查询到explorer模块 - [zhangpu] 0a7a2a3
 * 2021-08-23 - 完成数字货币浏览器的全网数据查询SDK的结构设计，统一接口，运行每个币种多个实现，只要其中一个实现正确获取数据则返回，同时支持针对浏览器查询数据的统一缓存配置（默认本地2分钟） - [zhangpu] 1bd6413
+* 2021-08-23 - 基于新的数字货币浏览器查询框架，开发了BTC和ETH的全网数据查询SDK封装，迁移原fil独立全网数据查询到explorer模块 - [zhangpu] 0a7a2a3
+* 2021-08-23 - 完成CoinExplorerService整合服务的开发，各币种可方便的直接调用，请在目标工程直接注入`CoinExplorerService`服务使用即可。 - [zhangpu] ae400e8
+* 2021-08-24 - 为同币种多个实现增加排序功能，通过@Ordered标签或接口 - [zhangpu] 1491577
 
 ### 5.0.0-SNAPSHOT.20210606
 
