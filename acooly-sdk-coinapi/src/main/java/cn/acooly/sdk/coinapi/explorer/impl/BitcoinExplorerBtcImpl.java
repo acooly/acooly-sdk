@@ -20,6 +20,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 /**
@@ -37,7 +38,7 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
     protected BitcoinOverview doBrowser() {
         try {
             // .cookie("next-i18next","zh-CN")
-            Document doc = Jsoup.connect("https://btc.com/btc").get();
+            Document doc = Jsoup.connect("https://btc.com/btc").timeout(60 * 1000).get();
             Elements elements = doc.select("div.home_network-status-item__2rgHs");
             StringBuilder sb = new StringBuilder();
             sb.append("{");
@@ -103,7 +104,7 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
 
     protected String parseNextDifficulty(String value) {
         // (+8.91%) 16.94 T
-        return handleValueToNumber(Strings.substringAfterLast(value,")"));
+        return handleValueToNumber(Strings.substringAfterLast(value, ")"));
 //        return "\"" + Strings.substringBetween(value, "(", ")") + "\"";
     }
 
@@ -127,4 +128,8 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
         return handleValueToNumber(temp);
     }
 
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
 }
