@@ -13,6 +13,7 @@ import cn.acooly.sdk.coinapi.explorer.domain.BitcoinOverview;
 import cn.acooly.sdk.coinapi.explorer.domain.EthereumOverview;
 import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
 import cn.acooly.sdk.coinapi.explorer.impl.BitcoinExplorerBtcImpl;
+import cn.acooly.sdk.coinapi.explorer.impl.BitcoinExplorerOklinkImpl;
 import cn.acooly.sdk.coinapi.explorer.impl.EthereumExplorerBtcImpl;
 import cn.acooly.sdk.coinapi.explorer.impl.FilecoinExplorerFilfoxImpl;
 import cn.acooly.sdk.coinapi.fil.FileCoinNetworkInfo;
@@ -31,13 +32,16 @@ public class CoinExplorerLocalTest {
 
     private EthereumExplorerBtcImpl ethExplorerBtc = new EthereumExplorerBtcImpl();
     private BitcoinExplorerBtcImpl bitcoinExplorerBtc = new BitcoinExplorerBtcImpl();
+    private BitcoinExplorerOklinkImpl bitcoinExplorerOklink = new BitcoinExplorerOklinkImpl();
     private FilecoinExplorerFilfoxImpl filecoinExplorerFilfox = new FilecoinExplorerFilfoxImpl();
+
 
     @Before
     public void init() {
         ExplorerCacheManager explorerCacheManager = new ExplorerCacheManager();
         ethExplorerBtc.setExplorerCacheManager(explorerCacheManager);
         bitcoinExplorerBtc.setExplorerCacheManager(explorerCacheManager);
+        bitcoinExplorerOklink.setExplorerCacheManager(explorerCacheManager);
         filecoinExplorerFilfox.setExplorerCacheManager(explorerCacheManager);
     }
 
@@ -60,6 +64,11 @@ public class CoinExplorerLocalTest {
         log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
     }
 
+    @Test
+    public void testBitcoinExplorerOklink() {
+        BitcoinOverview bitcoinOverview = bitcoinExplorerOklink.browse();
+        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
+    }
 
     @Test
     public void testNewFilecoinOverview() {
