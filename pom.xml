@@ -18,6 +18,8 @@
         <module>acooly-sdk-test</module>
         <module>acooly-sdk-coinapi</module>
         <module>acooly-sdk-filecoin</module>
+        <module>acooly-sdk-swft</module>
+        <module>acooly-sdk-common</module>
     </modules>
 
     <build>

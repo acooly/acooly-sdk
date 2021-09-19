@@ -31,8 +31,8 @@ public class FileCoinTransactionTest extends FileCoinRpcBaseTest {
     FileCoinTransaction fileCoinTransaction = new FileCoinTransactionImpl(fileCoinWallet, fileCoinMpool);
 
 
-    String from = "t1vwj5ia2ge2h2fydqage3k2csibirdpz2k7bbkfi";
-    String to = "t1sgzkhqhzdflteflpjkpjn4nzqmr5boq23calvwy";
+    String from = "t1rifcwqlynsk4lswfacrdigb42qjpfyuszgakd6y";
+    String to = "t1fdqsh5pxg5jqi3mzpqqvdfj26rfyosdpbuvh3ni";
 
 
     @Test

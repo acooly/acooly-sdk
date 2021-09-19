@@ -10,6 +10,7 @@ package cn.acooly.sdk.filecoin.rpclient.message;
 
 import cn.acooly.sdk.filecoin.domain.FilMessage;
 import cn.acooly.sdk.filecoin.domain.JsonRpcResponse;
+import cn.acooly.sdk.filecoin.domain.SecpkMessage;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import lombok.ToString;
@@ -33,7 +34,7 @@ public class ChainGetBlockMessagesRpcResponse extends JsonRpcResponse<ChainGetBl
         private List<FilMessage> blsMessages;
 
         @JSONField(name = "SecpkMessages")
-        private List<FilMessage> secpkMessages;
+        private List<SecpkMessage> secpkMessages;
 
     }
 }

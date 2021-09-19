@@ -13,6 +13,13 @@
         <deploy.skip>true</deploy.skip>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>cn.acooly</groupId>
+            <artifactId>acooly-sdk-swft</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-exchangerate</artifactId>
@@ -23,6 +30,26 @@
             <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-coinapi</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.liaochong</groupId>
+            <artifactId>myexcel</artifactId>
+            <version>3.10.1</version>
         </dependency>
 
 

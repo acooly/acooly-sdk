@@ -23,10 +23,10 @@ import org.junit.Test;
 @Slf4j
 public class FileCoinRpcBaseTest {
 
-    protected static final String GATEWAY_URL = "http://47.57.4.57:1234/rpc/v0";
-    protected static final String GATEWAY_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" +
-            ".eyJBbGxvdyI6WyJyZWFkIiwid3JpdGUiLCJzaWduIiwiYWRtaW4iXX0" +
-            ".JVi0UQGjILueyZzH0tv_eSN_hjW0HqLOvlR40MC8esQ";
+    protected static final String GATEWAY_URL = "http://47.242.205.154:1234/rpc/v0";
+    protected static final String GATEWAY_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+            "eyJBbGxvdyI6WyJyZWFkIiwid3JpdGUiLCJzaWduIiwiYWRtaW4iXX0." +
+            "I29sU1w9HlpoupQEXxHF6Y4L2AN-yqV6wtWHKms0gHk";
 
     protected static FilecoinSdkProperties filecoinSdkProperties = new FilecoinSdkProperties(GATEWAY_URL, GATEWAY_TOKEN);
     protected static JsonRpcTransport transport = new JsonRpcHttpTransport(filecoinSdkProperties);

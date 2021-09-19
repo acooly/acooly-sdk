@@ -34,7 +34,7 @@ public class FileCoinChainTest extends FileCoinRpcBaseTest {
 
     @Test
     public void testChainGetTipSetByHeight() {
-        Integer blockHeight = 29191;
+        Integer blockHeight = 196597;
         ChainGetTipSetByHeightRpcResponse.ChainGetTipSetByHeight chainGetTipSetByHeight
                 = fileCoinChain.chainGetTipSetByHeight(blockHeight);
         log.info("ChainGetTipSetByHeight: blockHeight:{}, result: {}", blockHeight, chainGetTipSetByHeight);
