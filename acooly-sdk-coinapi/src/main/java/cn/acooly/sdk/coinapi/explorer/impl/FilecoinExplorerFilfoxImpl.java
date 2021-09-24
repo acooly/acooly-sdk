@@ -37,7 +37,7 @@ public class FilecoinExplorerFilfoxImpl extends AbstractCoinExplorer<FilecoinOve
     @Override
     protected FilecoinOverview doBrowser() {
         try {
-            Document doc = Jsoup.connect("https://filfox.info/en").get();
+            Document doc = Jsoup.connect("https://filfox.info/en").timeout(getDefaultTimeoutSeconds() * 1000).get();
             Elements elements = doc.select("div.flex.items-center.rounded-sm.bg-background > div");
             StringBuilder sb = new StringBuilder();
             sb.append("{");

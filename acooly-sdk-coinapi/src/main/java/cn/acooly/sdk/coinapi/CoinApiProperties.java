@@ -93,6 +93,11 @@ public class CoinApiProperties {
     @Data
     public static class Explorer {
         private Cache cache = new Cache();
+        /**
+         * 默认超时时间
+         */
+        private int timeoutSeconds = 10;
+
     }
 
 }

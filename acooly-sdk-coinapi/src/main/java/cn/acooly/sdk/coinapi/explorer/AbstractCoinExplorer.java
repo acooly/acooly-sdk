@@ -8,6 +8,7 @@
  */
 package cn.acooly.sdk.coinapi.explorer;
 
+import cn.acooly.sdk.coinapi.CoinApiProperties;
 import cn.acooly.sdk.coinapi.enums.DigitCurrency;
 import com.acooly.core.utils.Strings;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,8 @@ public abstract class AbstractCoinExplorer<T> implements CoinExplorer {
     @Autowired
     protected ExplorerCacheManager explorerCacheManager;
 
+    @Autowired(required = false)
+    private CoinApiProperties coinApiProperties;
 
     @Override
     public T browse() {
@@ -78,6 +81,10 @@ public abstract class AbstractCoinExplorer<T> implements CoinExplorer {
     @Override
     public int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE;
+    }
+
+    protected int getDefaultTimeoutSeconds() {
+        return coinApiProperties != null ? coinApiProperties.getExplorer().getTimeoutSeconds() : 10;
     }
 
 }

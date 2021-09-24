@@ -49,7 +49,7 @@ public class CoinExplorerLocalTest {
     public void testEthExplorerBtcImpl() {
         EthereumOverview ethNetOverview = null;
         ethNetOverview = ethExplorerBtc.browse();
-        ethNetOverview = ethExplorerBtc.browse();
+//        ethNetOverview = ethExplorerBtc.browse();
         log.info("EthereumOverview: {},{}", ethNetOverview, ethNetOverview.getDifficultyByPeta());
 
         BitcoinOverview bitcoinOverview = null;

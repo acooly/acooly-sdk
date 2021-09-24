@@ -38,7 +38,7 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
     protected BitcoinOverview doBrowser() {
         try {
             // .cookie("next-i18next","zh-CN")
-            Document doc = Jsoup.connect("https://btc.com/btc").timeout(60 * 1000).get();
+            Document doc = Jsoup.connect("https://btc.com/btc").timeout(getDefaultTimeoutSeconds() * 1000).get();
             Elements elements = doc.select("div.home_network-status-item__2rgHs");
             StringBuilder sb = new StringBuilder();
             sb.append("{");

@@ -37,7 +37,7 @@ public class EthereumExplorerBtcImpl extends AbstractCoinExplorer<EthereumOvervi
     protected EthereumOverview doBrowser() {
         try {
             // .cookie("next-i18next","zh-CN")
-            Document doc = Jsoup.connect("https://btc.com/eth").timeout(60 * 1000).get();
+            Document doc = Jsoup.connect("https://btc.com/eth").timeout(getDefaultTimeoutSeconds() * 1000).get();
             Elements elements = doc.select("div.home_network-status-item__2rgHs");
             StringBuilder sb = new StringBuilder();
             sb.append("{");
