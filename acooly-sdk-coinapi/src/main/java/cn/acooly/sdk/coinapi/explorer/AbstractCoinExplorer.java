@@ -64,6 +64,9 @@ public abstract class AbstractCoinExplorer<T> implements CoinExplorer {
             temp = Strings.split(temp, "/")[0];
         }
         temp = Strings.uncapitalize(temp);
+        if (Strings.equalsIgnoreCase("hashrate", temp)) {
+            temp = "hashRate";
+        }
         return temp;
     }
 

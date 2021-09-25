@@ -85,9 +85,6 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
         if (Strings.equalsIgnoreCase("24HAvgTxrate", key)) {
             key = "tps";
         }
-        if (Strings.equalsIgnoreCase("hashrate", key)) {
-            key = "hashRate";
-        }
         return key;
     }
 
