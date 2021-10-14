@@ -20,6 +20,7 @@
         <module>acooly-sdk-filecoin</module>
         <module>acooly-sdk-swft</module>
         <module>acooly-sdk-common</module>
+        <module>acooly-sdk-aliyun</module>
     </modules>
 
     <build>
