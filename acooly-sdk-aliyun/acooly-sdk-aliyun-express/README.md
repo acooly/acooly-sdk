@@ -33,7 +33,7 @@
 ## 阿里云市场用户身份配置
 # [必填]（与下面appKey和appSecret组合二选一必填） ，本组件必填
 # 阿里云的AppCode, 一般用于简单身份认证
-acooly.sdk.aliyun.app-code=ac49b5284d0e4d6ebacd8675618947da
+acooly.sdk.aliyun.app-code=ac49b528xxxxxxxxxx5618947da
 
 # [可选] appKey和appSecret组合与appCode二选一必填） ，本组件不填
 # 签名认证的accessKey和secretKey
