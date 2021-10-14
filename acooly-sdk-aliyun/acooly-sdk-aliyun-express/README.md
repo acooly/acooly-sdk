@@ -1,4 +1,4 @@
-<!-- title: 快递查询SDK[阿里] -->
+<!-- title: 快递查询SDK -->
 <!-- name: acooly-sdk-aliyun-express -->
 <!-- type: resources -->
 <!-- author: zhangpu -->
