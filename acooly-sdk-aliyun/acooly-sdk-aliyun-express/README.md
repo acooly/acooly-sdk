@@ -72,3 +72,11 @@ acooly.sdk.aliyun.app-code=acddxxxxxxxxxxxxx75618947ddd
 
 集成和配置完成后，直接在目标工程和模块注入`ExpressService`服务，调用：`ExpressService.track`方法，根据快递单号查询快递信息和配送轨迹信息。
 
+# changelog
+
+# 5.0.0-SNAPSHOT.20211014
+
+2021-10-14
+
+* 首次发布快递查询SDK
+* 支持根据快递单号，快递公司等信息查询快递详情和轨迹信息
