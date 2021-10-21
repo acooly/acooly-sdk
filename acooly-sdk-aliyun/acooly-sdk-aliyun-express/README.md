@@ -62,6 +62,15 @@ acooly.sdk.aliyun.express.app-key=
 acooly.sdk.aliyun.express.app-secret=
 ```
 
+## 缓存配置
+
+```ini
+# [可选] 缓存开关（默认true，开启）
+acooly.sdk.aliyun.express.cache.enable=true
+# [可选] 缓存过期时长（单位秒，默认120秒）
+acooly.sdk.aliyun.express.cache.timeout=120
+```
+
 ## 最简配置
 
 ```ini
@@ -80,3 +89,7 @@ acooly.sdk.aliyun.app-code=acddxxxxxxxxxxxxx75618947ddd
 
 * 首次发布快递查询SDK
 * 支持根据快递单号，快递公司等信息查询快递详情和轨迹信息
+
+# 5.0.0-SNAPSHOT.20211021
+
+* 2021-10-21 - 快递查询组件增加缓存功能（默认打开，120秒缓存），逻辑：根据单号+快递公司编码缓存快递信息到redis。定时过期。通过参数`acooly.sdk.aliyun.express.cache.enable=true`控制是否启用缓存，通过`acooly.sdk.aliyun.express.cache.timeout=120`控制缓存超时时间 - [zhangpu] bed67e1
