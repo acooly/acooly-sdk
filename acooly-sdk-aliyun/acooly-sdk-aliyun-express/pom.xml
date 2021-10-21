@@ -16,6 +16,10 @@
             <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-aliyun-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-cache</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

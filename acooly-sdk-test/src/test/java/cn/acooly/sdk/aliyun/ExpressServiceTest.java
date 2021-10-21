@@ -33,7 +33,19 @@ public class ExpressServiceTest extends NoWebTestBase {
     public void testTrack() {
         String orderNo = "75812570871893";
         String expCompCode = CommonExpComp.zhongtong.code();
+        // first
         ExpressTrackInfo expressTrackInfo = expressService.track(orderNo, expCompCode);
+        // second
+        expressTrackInfo = expressService.track(orderNo, expCompCode);
+        // setting 10s cache timeout
+        try {
+            // 等待12秒，模拟缓存过期
+            Thread.sleep(12 * 1000);
+        } catch (Exception e) {
+            // ig
+        }
+        // third
+        expressTrackInfo = expressService.track(orderNo, expCompCode);
         log.info("{}", expressTrackInfo);
     }
 
