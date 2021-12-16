@@ -1,0 +1,1 @@
+curl --proxy 127.0.0.1:19180 -H "X-CMC_PRO_API_KEY: 31f2aab7-d120-41f9-8812-8b26245165d9" -H "Accept: application/json" -d "start=1&limit=5000&convert=USD" -G https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
