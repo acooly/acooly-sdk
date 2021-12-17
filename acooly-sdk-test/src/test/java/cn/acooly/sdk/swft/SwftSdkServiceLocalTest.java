@@ -9,10 +9,8 @@
 package cn.acooly.sdk.swft;
 
 import cn.acooly.sdk.swft.message.AccountExchangeRequest;
-import cn.acooly.sdk.swft.message.GetBaseInfoResponse;
-import cn.acooly.sdk.swft.message.QueryCoinListRequest;
-import cn.acooly.sdk.swft.message.QueryCoinListResponse;
 import cn.acooly.sdk.swft.message.dto.BaseInfo;
+import cn.acooly.sdk.swft.message.dto.ExchangeCaleResult;
 import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
 import cn.acooly.sdk.swft.transport.HttpSwftTransport;
 import cn.acooly.sdk.swft.transport.SwftTransport;
@@ -70,8 +68,8 @@ public class SwftSdkServiceLocalTest {
         String from = "ETH";
         String to = "USDT";
         BigDecimal fromAmount = BigDecimal.valueOf(2);
-        BigDecimal receiveCoinAmount = swftSdkService.calcExchange(from, fromAmount, to);
-        log.info("汇率计算 from {}{} to {}{}", fromAmount, from, receiveCoinAmount, to);
+        ExchangeCaleResult result = swftSdkService.exchangeCalc(from, fromAmount, to);
+        log.info("汇率计算 from {}{} to {}{}, full data: {}", fromAmount, from, result.getReceiveCoinAmount(), to, result);
     }
 
     /**

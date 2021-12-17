@@ -9,12 +9,12 @@
 package cn.acooly.sdk.swft;
 
 import cn.acooly.sdk.swft.message.*;
-import cn.acooly.sdk.swft.message.dto.AccountExchangeInfo;
 import cn.acooly.sdk.swft.message.dto.BaseInfo;
+import cn.acooly.sdk.swft.message.dto.ExchangeCaleResult;
 import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
 import cn.acooly.sdk.swft.transport.SwftTransport;
-import com.acooly.core.utils.BigMoney;
 import com.acooly.core.utils.Strings;
+import com.acooly.core.utils.mapper.BeanCopier;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,8 +90,8 @@ public class SwftSdkService {
     /**
      * 汇率计算
      * <p>
-     * 计算用户兑换实际到账数量：
-     * 实际到账数量 = （用户存币数量 - 兑换手续费数量）* 汇率 -  链上发币手续费
+     * 可以用于界面上及时计算
+     * 计算用户兑换实际到账数量： 实际到账数量 = （用户存币数量 - 兑换手续费数量）* 汇率 -  链上发币手续费
      * receiveCoinAmt = （depositCoinAmt - depositCoinAmt * 兑换手续费率） *  instantRate - receiveCoinFee
      *
      * @param depositCoinCode
@@ -99,18 +99,23 @@ public class SwftSdkService {
      * @param receiveCoinCode
      * @return
      */
-    public BigDecimal calcExchange(String depositCoinCode, BigDecimal depositCoinAmount, String receiveCoinCode) {
+    public ExchangeCaleResult exchangeCalc(String depositCoinCode, BigDecimal depositCoinAmount, String receiveCoinCode) {
+        ExchangeCaleResult result = new ExchangeCaleResult();
         BaseInfo baseInfo = getBaseInfo(depositCoinCode, receiveCoinCode);
+        BeanCopier.copy(baseInfo, result);
         // swft兑换手续费率
         BigDecimal swftRate = baseInfo.getDepositCoinFeeRate();
         // swft兑换手续费
         BigDecimal swftFee = depositCoinAmount.multiply(swftRate);
         // 链上发币手续费
-        BigDecimal chainFee = baseInfo.getChainFee();
+        BigDecimal receiveCoinFee = baseInfo.getChainFee();
         // 汇率
         BigDecimal instantRate = baseInfo.getInstantRate();
         // 计算兑换后应收币数量
-        BigDecimal result = depositCoinAmount.subtract(swftFee).multiply(instantRate).subtract(chainFee);
+        BigDecimal receiveCoinAmount = depositCoinAmount.subtract(swftFee).multiply(instantRate).subtract(receiveCoinFee);
+        result.setReceiveCoinAmount(receiveCoinAmount);
+        result.setDepositCoinAmount(depositCoinAmount);
+        result.setDepositCoinFree(swftFee);
         return result;
     }
 

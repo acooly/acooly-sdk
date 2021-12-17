@@ -31,7 +31,7 @@ import java.math.BigDecimal;
 public class BaseInfo extends InfoBase {
 
     /**
-     * ? 链上手续费，同receiveCoinFee
+     * 链上手续费，同receiveCoinFee（目标币）
      */
     private BigDecimal chainFee;
 

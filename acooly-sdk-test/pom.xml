@@ -38,6 +38,12 @@
             <version>${project.parent.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.acooly</groupId>
+            <artifactId>acooly-sdk-aliyun-express</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
 
 
         <dependency>
