@@ -13,6 +13,7 @@ import cn.acooly.sdk.swft.message.dto.AccountExchangeInfo;
 import cn.acooly.sdk.swft.message.dto.BaseInfo;
 import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
 import cn.acooly.sdk.swft.transport.SwftTransport;
+import com.acooly.core.utils.BigMoney;
 import com.acooly.core.utils.Strings;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -82,6 +84,34 @@ public class SwftSdkService {
         GetBaseInfoRequest request = new GetBaseInfoRequest(depositCoinCode, receiveCoinCode);
         GetBaseInfoResponse response = getBaseInfo(request);
         return response.getBaseInfo();
+    }
+
+
+    /**
+     * 汇率计算
+     * <p>
+     * 计算用户兑换实际到账数量：
+     * 实际到账数量 = （用户存币数量 - 兑换手续费数量）* 汇率 -  链上发币手续费
+     * receiveCoinAmt = （depositCoinAmt - depositCoinAmt * 兑换手续费率） *  instantRate - receiveCoinFee
+     *
+     * @param depositCoinCode
+     * @param depositCoinAmount
+     * @param receiveCoinCode
+     * @return
+     */
+    public BigDecimal calcExchange(String depositCoinCode, BigDecimal depositCoinAmount, String receiveCoinCode) {
+        BaseInfo baseInfo = getBaseInfo(depositCoinCode, receiveCoinCode);
+        // swft兑换手续费率
+        BigDecimal swftRate = baseInfo.getDepositCoinFeeRate();
+        // swft兑换手续费
+        BigDecimal swftFee = depositCoinAmount.multiply(swftRate);
+        // 链上发币手续费
+        BigDecimal chainFee = baseInfo.getChainFee();
+        // 汇率
+        BigDecimal instantRate = baseInfo.getInstantRate();
+        // 计算兑换后应收币数量
+        BigDecimal result = depositCoinAmount.subtract(swftFee).multiply(instantRate).subtract(chainFee);
+        return result;
     }
 
 

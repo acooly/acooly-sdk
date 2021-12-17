@@ -8,16 +8,21 @@
  */
 package cn.acooly.sdk.swft;
 
+import cn.acooly.sdk.swft.message.AccountExchangeRequest;
+import cn.acooly.sdk.swft.message.GetBaseInfoResponse;
 import cn.acooly.sdk.swft.message.QueryCoinListRequest;
 import cn.acooly.sdk.swft.message.QueryCoinListResponse;
+import cn.acooly.sdk.swft.message.dto.BaseInfo;
 import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
 import cn.acooly.sdk.swft.transport.HttpSwftTransport;
 import cn.acooly.sdk.swft.transport.SwftTransport;
 import com.acooly.core.utils.Collections3;
+import com.acooly.core.utils.Ids;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -47,6 +52,43 @@ public class SwftSdkServiceLocalTest {
                 log.info("{}", info);
             }
         }
+    }
+
+    /**
+     * 获取兑换汇率和手续费信息
+     */
+    @Test
+    public void testGetBaseInfo() {
+        String from = "ETH";
+        String to = "USDT";
+        BaseInfo baseInfo = swftSdkService.getBaseInfo(from, to);
+        log.info("兑换汇率 from {} to {} : {}", from, to, baseInfo);
+    }
+
+    @Test
+    public void testCalcExchange() {
+        String from = "ETH";
+        String to = "USDT";
+        BigDecimal fromAmount = BigDecimal.valueOf(2);
+        BigDecimal receiveCoinAmount = swftSdkService.calcExchange(from, fromAmount, to);
+        log.info("汇率计算 from {}{} to {}{}", fromAmount, from, receiveCoinAmount, to);
+    }
+
+    /**
+     * 创建闪兑订单
+     */
+    @Test
+    public void testAccountExchange() {
+        String refundAddr = "";
+
+        AccountExchangeRequest request = new AccountExchangeRequest();
+        request.setDepositCoinCode("USDT");
+        request.setDepositCoinAmt("1");
+        request.setEquipmentNo(Ids.did());
+        request.setSourceFlag("wecoinbank");
+        request.setRefundAddr(refundAddr);
+//        request.setDestinationAddr();
+
     }
 
 

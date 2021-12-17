@@ -86,13 +86,6 @@ public class QueryOrderStateInfo extends BaseInfo {
     @NotBlank
     private String refundAddr;
 
-    /**
-     * 存币的手续费率
-     * eg：手续费率
-     */
-    @Size(max = 30)
-    @NotBlank
-    private String depositCoinFeeRate;
 
     /**
      * 存币的手续费金额
