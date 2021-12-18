@@ -28,7 +28,7 @@ public class SwftProperties {
     /**
      * 用于标识是哪个平台创建的订单，需要与SWFT BlockChain进行协商设置
      */
-    private String sourceFlag;
+    private String sourceFlag = "wecoinbank";
 
     private Gateway gateway = new Gateway();
 

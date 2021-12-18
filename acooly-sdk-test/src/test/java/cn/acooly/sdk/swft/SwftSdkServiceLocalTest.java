@@ -14,6 +14,7 @@ import cn.acooly.sdk.swft.message.dto.ExchangeCaleResult;
 import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
 import cn.acooly.sdk.swft.transport.HttpSwftTransport;
 import cn.acooly.sdk.swft.transport.SwftTransport;
+import com.acooly.core.common.enums.ChannelEnum;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Ids;
 import lombok.extern.slf4j.Slf4j;
@@ -77,15 +78,30 @@ public class SwftSdkServiceLocalTest {
      */
     @Test
     public void testAccountExchange() {
-        String refundAddr = "";
+
+        String depositCoinCode = "ETH";
+        BigDecimal depositCoinAmount = BigDecimal.valueOf(0.001);
+        // 退款地址（源币地址）
+        String depositCoinAddr = "";
+        String receiveCoinCode = "USDT";
+        String receiveCoinAddr = "";
+        ExchangeCaleResult result = swftSdkService.exchangeCalc(depositCoinCode, depositCoinAmount, receiveCoinCode);
+        BigDecimal receiveCoinAmount = result.getReceiveCoinAmount();
 
         AccountExchangeRequest request = new AccountExchangeRequest();
-        request.setDepositCoinCode("USDT");
-        request.setDepositCoinAmt("1");
+        // 公共参数
         request.setEquipmentNo(Ids.did());
+        request.setSourceType(ChannelEnum.ANDROID.code());
         request.setSourceFlag("wecoinbank");
-        request.setRefundAddr(refundAddr);
-//        request.setDestinationAddr();
+
+        request.setDepositCoinCode("USDT");
+        request.setDepositCoinAmt(depositCoinAmount.toPlainString());
+        request.setRefundAddr(depositCoinAddr);
+
+        request.setReceiveCoinCode("ETH");
+        request.setReceiveCoinAmt(receiveCoinAmount.toPlainString());
+        request.setDestinationAddr(receiveCoinAddr);
+
 
     }
 
