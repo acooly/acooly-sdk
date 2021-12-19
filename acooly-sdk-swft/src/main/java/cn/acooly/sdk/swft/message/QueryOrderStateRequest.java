@@ -9,6 +9,7 @@
 package cn.acooly.sdk.swft.message;
 
 import cn.acooly.sdk.swft.enums.SwftApiEnums;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.NotBlank;
@@ -21,7 +22,7 @@ import javax.validation.constraints.Size;
  * @author zhangpu
  * @date 2021-09-19 15:14
  */
-@Slf4j
+@Data
 public class QueryOrderStateRequest extends SwftRequest {
 
     /**
@@ -50,5 +51,12 @@ public class QueryOrderStateRequest extends SwftRequest {
 
     public QueryOrderStateRequest() {
         setService(SwftApiEnums.QueryOrderState.service());
+    }
+
+    public QueryOrderStateRequest(@Size(max = 100) @NotBlank String equipmentNo, @Size(max = 30) @NotBlank String sourceType, @Size(max = 100) @NotBlank String orderId) {
+        this();
+        this.equipmentNo = equipmentNo;
+        this.sourceType = sourceType;
+        this.orderId = orderId;
     }
 }

@@ -10,6 +10,8 @@ package cn.acooly.sdk.swft;
 
 import cn.acooly.sdk.swft.message.AccountExchangeRequest;
 import cn.acooly.sdk.swft.message.AccountExchangeResponse;
+import cn.acooly.sdk.swft.message.QueryOrderStateRequest;
+import cn.acooly.sdk.swft.message.QueryOrderStateResponse;
 import cn.acooly.sdk.swft.message.dto.BaseInfo;
 import cn.acooly.sdk.swft.message.dto.ExchangeCaleResult;
 import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
@@ -26,6 +28,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * SWFT单元测试
+ *
  * @author zhangpu
  * @date 2021-09-18 14:15
  */
@@ -45,7 +49,11 @@ public class SwftSdkServiceLocalTest {
     }
 
     /**
-     * 查询币种列表
+     * 1、查询币种列表
+     * <p>
+     * 使用SWFT前，需要先查询可以支持的兑换的币种情况，注意：这里查出来的名称才能用于后续兑换的标志参数（比如：通常的`USDT-TRC20`这里采用的是`USDT(TRON)`）。
+     * 数据结构为：币编码，币名称，不支持兑换的币列表。例如：QueryCoinListInfo(coinAllCode=USDT(TRON), coinCode=USDT(TRON), coinName=USDT(TRON), isSupportAdvanced=Y, coinImage=null, mainNetwork=TRX, noSupportCoin=VCC,PLA2,WMATIC(MATIC)...)
+     * 这里建议定时拉取列表，然后从数据库中查询
      */
     @Test
     public void testQueryCoinList() {
@@ -58,7 +66,11 @@ public class SwftSdkServiceLocalTest {
     }
 
     /**
-     * 获取兑换汇率和手续费信息
+     * 2.1、获取兑换汇率和手续费信息
+     * 该接口主要是获取两种币兑换的费率（以兑换存入币单位为1时的各种手续费），参数：`instantRate`
+     * 手续费主要两种：
+     * 1). 存币(源币)手续费：该手续费由SWFT收取，一般为源币的0.2%（例如：你充1000USDT币兑换其他币，实际只有9998个币参与兑换，2个币被SWFT收取为佣金），该接口返回参数中的`depositCoinFeeRate`为SWFT平台收取佣金的费率。
+     * 2). 链上(目标币)手续费：由矿工收取的链上gas费用等，参数`receiveCoinFee`
      */
     @Test
     public void testGetBaseInfo() {
@@ -68,6 +80,10 @@ public class SwftSdkServiceLocalTest {
         log.info("兑换汇率 from {} to {} : {}", from, to, baseInfo);
     }
 
+    /**
+     * 2.2 根据查询的实时汇率和手续费计算实际能到账的币数量
+     * 公式：计算用户兑换实际到账数量： 实际到账数量 = （用户存币数量 - 兑换手续费数量）* 汇率 -  链上发币手续费
+     */
     @Test
     public void testCalcExchange() {
         String from = "USDT(TRON)";
@@ -110,7 +126,20 @@ public class SwftSdkServiceLocalTest {
 
         AccountExchangeResponse response = swftSdkService.accountExchange(request);
         log.info("AccountExchangeResponse: {}", response);
+    }
 
+    /**
+     * 单笔订单状态查询
+     */
+    @Test
+    public void testQueryOrderState() {
+        String equipmentNo = "211219155207022F0001";
+        String sourceType = ChannelEnum.ANDROID.code();
+        String orderId = "a3adf843-9209-461c-a732-55c4d9af7c77";
+
+        QueryOrderStateRequest request = new QueryOrderStateRequest(equipmentNo, sourceType, orderId);
+        QueryOrderStateResponse response = swftSdkService.queryOrderState(request);
+        log.info("QueryOrderState orderId:{}, result: {}", orderId, response.getQueryOrderStateInfo());
     }
 
 
