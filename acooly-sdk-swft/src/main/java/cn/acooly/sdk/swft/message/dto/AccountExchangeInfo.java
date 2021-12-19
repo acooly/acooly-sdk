@@ -14,7 +14,9 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 /**
  * 闪兑接口 响应报文
@@ -53,17 +55,15 @@ public class AccountExchangeInfo extends InfoBase {
      * 存币数量
      * eg：1
      */
-    @Size(max = 50)
-    @NotBlank
-    private String depositCoinAmt;
+    @NotNull
+    private BigDecimal depositCoinAmt;
 
     /**
      * 接收币数量
      * eg：0.1
      */
-    @Size(max = 50)
-    @NotBlank
-    private String receiveCoinAmt;
+    @NotNull
+    private BigDecimal receiveCoinAmt;
 
     /**
      * 存币地址
@@ -95,25 +95,21 @@ public class AccountExchangeInfo extends InfoBase {
      * 存币的手续费率
      * eg：手续费率
      */
-    @Size(max = 30)
-    @NotBlank
-    private String depositCoinFeeRate;
+    @NotNull
+    private BigDecimal depositCoinFeeRate;
 
     /**
      * 存币的手续费金额
      * eg：手续费收取的原币的数量
      */
-    @Size(max = 50)
-    @NotBlank
-    private String depositCoinFeeAmt;
+    @NotNull
+    private BigDecimal depositCoinFeeAmt;
 
     /**
      * 退币金额
      * eg: 0.98
      */
-    @Size(max = 50)
-    @NotBlank
-    private String refundCoinAmt;
+    private BigDecimal refundCoinAmt;
 
     /**
      * 兑换成功交易id

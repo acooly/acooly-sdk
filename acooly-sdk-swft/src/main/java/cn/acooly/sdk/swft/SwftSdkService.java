@@ -100,19 +100,34 @@ public class SwftSdkService {
      * @return
      */
     public ExchangeCaleResult exchangeCalc(String depositCoinCode, BigDecimal depositCoinAmount, String receiveCoinCode) {
+
         ExchangeCaleResult result = new ExchangeCaleResult();
         BaseInfo baseInfo = getBaseInfo(depositCoinCode, receiveCoinCode);
-        BeanCopier.copy(baseInfo, result);
+        result.setChainFee(baseInfo.getChainFee());
+        result.setDepositMax(baseInfo.getDepositMax());
+        result.setDepositCoinFeeRate(baseInfo.getDepositCoinFeeRate());
+        result.setDepositMin(baseInfo.getDepositMin());
+        result.setInstantRate(baseInfo.getInstantRate());
+        result.setIsDisCount(baseInfo.getIsDisCount());
+        result.setMinerFee(baseInfo.getMinerFee());
+        result.setReceiveCoinFee(baseInfo.getReceiveCoinFee());
+
+//        BeanCopier.copy(baseInfo, result);
         // swft兑换手续费率
-        BigDecimal swftRate = baseInfo.getDepositCoinFeeRate();
+        BigDecimal depositCoinFeeRate = baseInfo.getDepositCoinFeeRate();
         // swft兑换手续费
-        BigDecimal swftFee = depositCoinAmount.multiply(swftRate);
+        BigDecimal swftFee = depositCoinAmount.multiply(depositCoinFeeRate);
         // 链上发币手续费
         BigDecimal receiveCoinFee = baseInfo.getChainFee();
         // 汇率
         BigDecimal instantRate = baseInfo.getInstantRate();
+        log.info("兑换 from depositCoin: {} {} to receiveCoinCode:{}", depositCoinAmount, depositCoinCode, receiveCoinCode);
+//        log.info("depositCoinFeeRate: {}, depositCoinFee:{}", depositCoinFeeRate, swftFee);
+//        log.info("instantRate: {}, receiveCoinFee:{}", instantRate, receiveCoinFee);
         // 计算兑换后应收币数量
         BigDecimal receiveCoinAmount = depositCoinAmount.subtract(swftFee).multiply(instantRate).subtract(receiveCoinFee);
+        log.info("收币数量[receiveCoinAmount]公式计算：{} = (depositCoinAmt[{}] - depositCoinAmt[{}] * depositCoinFeeRate[{}]） *  instantRate[{}] - receiveCoinFee[{}]",
+                receiveCoinAmount, depositCoinAmount, depositCoinAmount, depositCoinFeeRate, instantRate, receiveCoinFee);
         result.setReceiveCoinAmount(receiveCoinAmount);
         result.setDepositCoinAmount(depositCoinAmount);
         result.setDepositCoinFree(swftFee);
