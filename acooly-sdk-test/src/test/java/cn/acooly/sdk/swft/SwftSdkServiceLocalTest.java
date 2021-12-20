@@ -8,13 +8,11 @@
  */
 package cn.acooly.sdk.swft;
 
-import cn.acooly.sdk.swft.message.AccountExchangeRequest;
-import cn.acooly.sdk.swft.message.AccountExchangeResponse;
-import cn.acooly.sdk.swft.message.QueryOrderStateRequest;
-import cn.acooly.sdk.swft.message.QueryOrderStateResponse;
+import cn.acooly.sdk.swft.message.*;
 import cn.acooly.sdk.swft.message.dto.BaseInfo;
 import cn.acooly.sdk.swft.message.dto.ExchangeCaleResult;
 import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
+import cn.acooly.sdk.swft.message.dto.TradeOrderPageInfo;
 import cn.acooly.sdk.swft.transport.HttpSwftTransport;
 import cn.acooly.sdk.swft.transport.SwftTransport;
 import com.acooly.core.common.enums.ChannelEnum;
@@ -37,6 +35,9 @@ import java.util.List;
 public class SwftSdkServiceLocalTest {
 
     private SwftSdkService swftSdkService;
+
+    String equipmentNo = "211219155207022F0001";
+    String sourceType = ChannelEnum.ANDROID.code();
 
     @Before
     public void init() {
@@ -112,8 +113,8 @@ public class SwftSdkServiceLocalTest {
 
         AccountExchangeRequest request = new AccountExchangeRequest();
         // 公共参数
-        request.setEquipmentNo(Ids.did());
-        request.setSourceType(ChannelEnum.ANDROID.code());
+        request.setEquipmentNo(equipmentNo);
+        request.setSourceType(sourceType);
         request.setSourceFlag("wecoinbank");
 
         request.setDepositCoinCode(depositCoinCode);
@@ -142,5 +143,15 @@ public class SwftSdkServiceLocalTest {
         log.info("QueryOrderState orderId:{}, result: {}", orderId, response.getQueryOrderStateInfo());
     }
 
+
+    /**
+     * 分页查询订单交易信息
+     */
+    @Test
+    public void testQueryAllTrade() {
+        QueryAllTradeRequest request = new QueryAllTradeRequest(equipmentNo, sourceType);
+        TradeOrderPageInfo response = swftSdkService.queryAllTrade(request);
+        log.info("QueryAllTrade equipmentNo:{},sourceType:{}, result: {}", equipmentNo, sourceType, response);
+    }
 
 }

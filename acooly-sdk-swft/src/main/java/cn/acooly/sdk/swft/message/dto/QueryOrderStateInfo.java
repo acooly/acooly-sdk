@@ -15,6 +15,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
+ * 单笔查询订单对象
+ *
  * @author zhangpu
  * @date 2021-09-19 15:59
  */
@@ -131,6 +133,12 @@ public class QueryOrderStateInfo extends BaseInfo {
     @Size(max = 30)
     @NotBlank
     private String detailState;
+
+    /**
+     * 订单状态说明
+     * 根据`detailState`值和文档翻译中文说明
+     */
+    private String detailStateText;
 
     /**
      * 实际兑换得到的币的数量

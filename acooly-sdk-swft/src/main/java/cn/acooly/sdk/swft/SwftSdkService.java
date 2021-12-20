@@ -8,11 +8,11 @@
  */
 package cn.acooly.sdk.swft;
 
+import cn.acooly.sdk.swft.enums.SwftDetailState;
 import cn.acooly.sdk.swft.message.*;
-import cn.acooly.sdk.swft.message.dto.BaseInfo;
-import cn.acooly.sdk.swft.message.dto.ExchangeCaleResult;
-import cn.acooly.sdk.swft.message.dto.QueryCoinListInfo;
+import cn.acooly.sdk.swft.message.dto.*;
 import cn.acooly.sdk.swft.transport.SwftTransport;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.BeanCopier;
 import lombok.NoArgsConstructor;
@@ -25,6 +25,29 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * 闪兑SDK
+ *
+ * <p>
+ * <h3>核心流程及逻辑</h3>
+ *
+ * <ol>
+ * <li>`queryCoinList` : 查询支持的币种（以及每个币种的编码，不支持兑换的币种列表）列表，检测采用定时拉取，本地缓存方式</li>
+ * <li>`getBaseInfo` : 查看币种兑换的汇率（两种币的兑换汇率），限制参数（最大最小兑换额度）和手续费（SWFT平台费率和链上费用）</li>
+ * <li>`exchangeCalc` : 根据`getBaseInfo`的数据，计算指定两种币，指定额度兑换后的数量</li>
+ * <li>
+ *     `accountExchange` : 闪兑订单接口，提交兑换订单请求。
+ *     <ul>
+ *      <li>请求后，SWFT会返回一个对源币的平台存币地址</li>
+ *      <li>兑换这想找个地址存入订单对应的源币</li>
+ *      <li>SWFT先根据SWFT手续费费率收取SWFT手续费（收源币）</li>
+ *      <li>SWFT会把剩下的源币按汇率兑换收币币种数量，然后充币到用户的收币地址（链上扣取费用）</li>
+ *     </ul>
+ * </li>
+ * <li>`queryOrderState`：单笔订单状态查询接口</li>
+ * <li>`queryAllTrade`：批量订单分页查询接口</li>
+ * </ol>
+ * </p>
+ *
  * @author zhangpu
  * @date 2021-09-16 23:04
  */
@@ -146,31 +169,62 @@ public class SwftSdkService {
         if (Strings.isBlank(request.getSourceFlag())) {
             request.setSourceFlag(swftProperties.getSourceFlag());
         }
-        return swftTransport.send(request, AccountExchangeResponse.class);
+        AccountExchangeResponse response = swftTransport.send(request, AccountExchangeResponse.class);
+        // 处理detailState对应的中文说明
+        if (response.getAccountExchangeInfo() != null && Strings.isNotBlank(response.getAccountExchangeInfo().getDetailState())) {
+            response.getAccountExchangeInfo().setDetailStateText(getDetailStateText(response.getAccountExchangeInfo().getDetailState()));
+        }
+        return response;
     }
 
     /**
      * 订单状态查询
+     * （单笔查询）
      *
      * @param request
      * @return
      */
     public QueryOrderStateResponse queryOrderState(QueryOrderStateRequest request) {
-        return swftTransport.send(request, QueryOrderStateResponse.class);
+        QueryOrderStateResponse response = swftTransport.send(request, QueryOrderStateResponse.class);
+        // 处理detailState对应的中文说明
+        if (response.getQueryOrderStateInfo() != null && Strings.isNotBlank(response.getQueryOrderStateInfo().getDetailState())) {
+            response.getQueryOrderStateInfo().setDetailStateText(getDetailStateText(response.getQueryOrderStateInfo().getDetailState()));
+        }
+        return response;
     }
 
     /**
      * 查询所有交易
+     * (分页查询)
      *
      * @param request
      * @return
      */
-    public QueryAllTradeResponse queryAllTrade(QueryAllTradeRequest request) {
-        return swftTransport.send(request, QueryAllTradeResponse.class);
+    public TradeOrderPageInfo queryAllTrade(QueryAllTradeRequest request) {
+        QueryAllTradeResponse response = swftTransport.send(request, QueryAllTradeResponse.class);
+        TradeOrderPageInfo pageInfo = response.getTradeOrderPageInfo();
+        if (Collections3.isNotEmpty(pageInfo.getTradeOrderInfos())) {
+            for (TradeOrderInfo orderInfo : pageInfo.getTradeOrderInfos()) {
+                if (Strings.isNotBlank(orderInfo.getDetailState())) {
+                    orderInfo.setDetailStateText(getDetailStateText(orderInfo.getDetailState()));
+                }
+            }
+        }
+        return pageInfo;
     }
 
     public SwftSdkService(SwftTransport swftTransport, SwftProperties swftProperties) {
         this.swftTransport = swftTransport;
         this.swftProperties = swftProperties;
+    }
+
+    private String getDetailStateText(String detailState) {
+        if (Strings.isNotBlank(detailState)) {
+            SwftDetailState swftDetailState = SwftDetailState.find(detailState);
+            if (swftDetailState != null) {
+                return swftDetailState.getMessage();
+            }
+        }
+        return null;
     }
 }

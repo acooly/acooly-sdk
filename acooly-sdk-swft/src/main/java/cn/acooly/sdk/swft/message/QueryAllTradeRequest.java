@@ -44,17 +44,21 @@ public class QueryAllTradeRequest extends SwftRequest {
      * 当前页
      * eg：1，默认1
      */
-    @Size(max = 10)
-    private String pageNo;
+    private int pageNo = 1;
 
     /**
      * 每页显示记录数
      * eg：10，默认10
      */
-    @Size(max = 10)
-    private String pageSize;
+    private int pageSize = 10;
 
     public QueryAllTradeRequest() {
         setService(SwftApiEnums.QueryAllTrade.service());
+    }
+
+    public QueryAllTradeRequest(@Size(max = 100) @NotBlank String equipmentNo, @Size(max = 30) @NotBlank String sourceType) {
+        this();
+        this.equipmentNo = equipmentNo;
+        this.sourceType = sourceType;
     }
 }

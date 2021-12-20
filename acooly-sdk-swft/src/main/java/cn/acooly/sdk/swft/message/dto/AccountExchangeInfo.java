@@ -8,6 +8,7 @@
  */
 package cn.acooly.sdk.swft.message.dto;
 
+import cn.acooly.sdk.swft.enums.SwftDetailState;
 import cn.acooly.sdk.swft.message.SwftResponse;
 import com.acooly.core.common.facade.InfoBase;
 import lombok.Data;
@@ -141,20 +142,10 @@ public class AccountExchangeInfo extends InfoBase {
     private String detailState;
 
     /**
-     * 订单状态
-     * eg：wait_deposits
+     * 订单状态说明
+     * 根据`detailState`值和文档翻译中文说明
      */
-    @Size(max = 30)
-    @NotBlank
-    private String orderState;
-
-    /**
-     * 兑换方式
-     * simple：简单兑换、advanced：高级兑换
-     */
-    @Size(max = 20)
-    @NotBlank
-    private String changeType;
+    private String detailStateText;
 
     /**
      * kyc的路径
