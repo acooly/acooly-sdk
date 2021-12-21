@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * 闪兑SDK
- *
+ * 文档：https://docs.google.com/spreadsheets/d/1LgjKhNGQRL1_TJmzrZfLjqW-FGWcJDI6uuzjuB7aBRM/edit#gid=821282425
  * <p>
  * <h3>核心流程及逻辑</h3>
  *
