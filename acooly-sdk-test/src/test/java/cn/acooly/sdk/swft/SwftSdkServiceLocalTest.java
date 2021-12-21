@@ -89,7 +89,7 @@ public class SwftSdkServiceLocalTest {
     public void testCalcExchange() {
         String from = "USDT(TRON)";
         String to = "FIL";
-        BigDecimal fromAmount = BigDecimal.valueOf(100);
+        BigDecimal fromAmount = BigDecimal.valueOf(60);
         ExchangeCaleResult result = swftSdkService.exchangeCalc(from, fromAmount, to);
         log.info("汇率计算 from {}{} to {}{}, full data: {}", fromAmount, from, result.getReceiveCoinAmount(), to, result);
     }
