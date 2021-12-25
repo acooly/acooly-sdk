@@ -12,12 +12,17 @@ import cn.acooly.sdk.swft.SwftProperties;
 import cn.acooly.sdk.swft.SwftSdkService;
 import cn.acooly.sdk.swft.transport.HttpSwftTransport;
 import cn.acooly.sdk.swft.transport.SwftTransport;
+import com.acooly.core.utils.BigMoney;
+import com.acooly.core.utils.Dates;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -57,7 +62,6 @@ public class CoinmarketcapSimpleTest {
     }
 
 
-
     @Test
     public void testListingsLatest() {
         String endpoints = "/v1/cryptocurrency/listings/latest";
@@ -72,7 +76,7 @@ public class CoinmarketcapSimpleTest {
         String endpoints = "/v1/cryptocurrency/quotes/latest";
         Map<String, String> params = Maps.newHashMap();
         params.put("symbol", "BTC,ETH,FIL");
-        params.put("convert", "CNY");
+        params.put("convert", "USD");
         String body = send(endpoints, params);
     }
 
@@ -83,10 +87,22 @@ public class CoinmarketcapSimpleTest {
         Map<String, String> params = Maps.newHashMap();
         params.put("symbol", "BTC");
         params.put("convert", "CNY");
-        params.put("time_start","2021-12-01");
-        params.put("time_end","2021-12-24");
-        params.put("interval","daily");
+        params.put("time_start", "2021-12-01");
+        params.put("time_end", "2021-12-24");
+        params.put("interval", "daily");
         String body = send(endpoints, params);
+    }
+
+    @Test
+    public void utcTimeTest() {
+        String utcString = "2021-12-25T12:09:02.000Z";
+        utcString = utcString.replace("Z", " UTC");
+        Date date = Dates.parse(utcString, "yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+        long timeMillis = date.getTime();
+        System.out.println("timeMillis:" + timeMillis);
+        System.out.println(Dates.format(date, "yyyy-MM-dd HH:mm:ss"));
+
+        BigMoney money = BigMoney.valueOf("1212.1111111");
     }
 
 
@@ -97,4 +113,5 @@ public class CoinmarketcapSimpleTest {
         log.info("Resp {} : {}", endpoint, body);
         return body;
     }
+
 }
