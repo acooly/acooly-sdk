@@ -12,7 +12,10 @@ import cn.acooly.sdk.coinapi.enums.CoinApiErrors;
 import cn.acooly.sdk.coinapi.enums.DigitCurrency;
 import cn.acooly.sdk.coinapi.explorer.AbstractCoinExplorer;
 import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
+import cn.acooly.sdk.coinapi.quote.BinanceQuoteService;
+import cn.acooly.sdk.coinapi.quote.dto.CoinQuote;
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.utils.Money;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +24,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Currency;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * FIL浏览器 from filfox.info
@@ -33,9 +40,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class FilecoinExplorerFilfoxImpl extends AbstractCoinExplorer<FilecoinOverview> {
 
+    @Autowired
+    private BinanceQuoteService binanceQuoteService;
 
     @Override
     protected FilecoinOverview doBrowser() {
+        FilecoinOverview filecoinOverview = loadAndParse();
+        if(filecoinOverview != null){
+            filecoinOverview.setPrice(getPrice());
+        }
+        return filecoinOverview;
+    }
+
+    protected FilecoinOverview loadAndParse(){
         try {
             Document doc = Jsoup.connect("https://filfox.info/en").timeout(getDefaultTimeoutSeconds() * 1000).get();
             Elements elements = doc.select("div.flex.items-center.rounded-sm.bg-background > div");
@@ -70,6 +87,16 @@ public class FilecoinExplorerFilfoxImpl extends AbstractCoinExplorer<FilecoinOve
         }
     }
 
+    protected Money getPrice() {
+        try {
+            CoinQuote quote = binanceQuoteService.quoteUsdt("FIL");
+            return new Money(quote.getPrice().getAmount(), Currency.getInstance("USD"));
+        } catch (Exception e) {
+            // ig
+        }
+        return null;
+    }
+
 
     @Override
     protected String handleKey(String title) {
@@ -88,4 +115,7 @@ public class FilecoinExplorerFilfoxImpl extends AbstractCoinExplorer<FilecoinOve
     }
 
 
+    public void setBinanceQuoteService(BinanceQuoteService binanceQuoteService) {
+        this.binanceQuoteService = binanceQuoteService;
+    }
 }

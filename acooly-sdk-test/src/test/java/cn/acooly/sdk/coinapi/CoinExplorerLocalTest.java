@@ -15,6 +15,7 @@ import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
 import cn.acooly.sdk.coinapi.explorer.impl.*;
 import cn.acooly.sdk.coinapi.fil.FileCoinNetworkInfo;
 import cn.acooly.sdk.coinapi.fil.impl.FilFoxFileCoinNetworkService;
+import cn.acooly.sdk.coinapi.quote.BinanceQuoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,10 @@ import org.junit.Test;
  */
 @Slf4j
 public class CoinExplorerLocalTest {
+
+    CoinApiProperties coinApiProperties = new CoinApiProperties();
+    ExplorerCacheManager explorerCacheManager = new ExplorerCacheManager(coinApiProperties);
+    BinanceQuoteService binanceQuoteService = new BinanceQuoteService(coinApiProperties);
 
     private EthereumExplorerBlockchairImpl ethereumExplorerBlockchair = new EthereumExplorerBlockchairImpl();
     private EthereumExplorerBtcImpl ethExplorerBtc = new EthereumExplorerBtcImpl();
@@ -42,12 +47,15 @@ public class CoinExplorerLocalTest {
         System.setProperty("https.proxyHost", PROXY_HOST);
         System.setProperty("https.proxyPort", String.valueOf(PROXY_PORT));
 
-        ExplorerCacheManager explorerCacheManager = new ExplorerCacheManager();
+
         ethereumExplorerBlockchair.setExplorerCacheManager(explorerCacheManager);
         ethExplorerBtc.setExplorerCacheManager(explorerCacheManager);
+
         bitcoinExplorerBtc.setExplorerCacheManager(explorerCacheManager);
         bitcoinExplorerBlockchair.setExplorerCacheManager(explorerCacheManager);
+
         filecoinExplorerFilfox.setExplorerCacheManager(explorerCacheManager);
+        filecoinExplorerFilfox.setBinanceQuoteService(binanceQuoteService);
     }
 
 
@@ -81,6 +89,7 @@ public class CoinExplorerLocalTest {
     public void testNewFilecoinOverview() {
         FilecoinOverview filecoinOverview = null;
         filecoinOverview = filecoinExplorerFilfox.browse();
+        // 二次调用，测试缓存（看日志时间）
         filecoinOverview = filecoinExplorerFilfox.browse();
         log.info("FilecoinOverview: {},{}", filecoinOverview);
     }
