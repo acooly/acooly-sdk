@@ -1,0 +1,20 @@
+CREATE TABLE `coinapi_coinmarketcap_quotes`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `coin_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '币种编码',
+  `price` decimal(10, 2) NULL DEFAULT NULL COMMENT '当前价格（USD）',
+  `volume_24h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '24小时交易量',
+  `volume_change_24h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '24小时交易量变化',
+  `percent_change_1h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '价格1小时变化比',
+  `percent_change_24h` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '价格24小时变化比',
+  `percent_change_7d` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '价格7天变化比',
+  `percent_change_30d` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '价格30天变化比',
+  `market_cap` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '市值(市场总量)',
+  `market_cap_dominance` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '市场占有率',
+  `fully_diluted_market_cap` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '稀释后市值',
+  `last_updated` datetime NULL DEFAULT NULL COMMENT '价格更新时间',
+  `last_updated_millis` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '更新时间毫秒',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `comments` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '币报价' ROW_FORMAT = Dynamic;
