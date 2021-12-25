@@ -9,6 +9,7 @@
 package cn.acooly.sdk.coinapi.explorer.domain;
 
 import com.acooly.core.common.facade.InfoBase;
+import com.acooly.core.utils.Money;
 import lombok.Data;
 import lombok.ToString;
 
@@ -23,6 +24,11 @@ import java.math.BigDecimal;
 @Data
 @ToString
 public class FilecoinOverview extends InfoBase {
+
+    /**
+     * 当前币价（$ USD）
+     */
+    private Money price;
 
     /**
      * 区块高度

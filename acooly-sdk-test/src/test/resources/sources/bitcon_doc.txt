@@ -1,0 +1,37 @@
+blocks — total number of blocks (note that it's 1 more than the latest block number as there is block #0)
+transactions — total number of transactions
+outputs — total number of outputs (including spent)
+circulation — number of coins in circulation (in satoshi)
+blockchain_size — total size of all blocks in bytes (note: it's not the size of a full node, it's just bare blocks; nodes are bigger in size as they use database indexing, etc)
+nodes— number of full network nodes (it's an approximate number and actually not a blockchain metric)
+difficulty — current mining difficulty
+hashrate_24h — approximated hashrate over the last 24 hours (returned as a string as it doesn't fit into an integer)
+next_retarget_time_estimate — approximate timestamp of the next difficulty retarget (this field is available for Bitcoin and Litecoin only)
+next_difficulty_estimate — approximate next difficulty value (this field is available for Bitcoin and Litecoin only)
+best_block_height — the latest block height
+best_block_hash — the latest block hash
+best_block_time — the latest block time
+mempool_transactions — number of transactions in the mempool
+mempool_outputs — number of outputs in the mempool
+mempool_size — mempool size in bytes
+mempool_tps — number of transactions per second added to the mempool
+mempool_total_fee_usd — sum of transaction fees in the mempool, in USD
+blocks_24h — number of blocks mined over the last 24 hours
+transactions_24h — number of transactions confirmed over the last 24 hours
+volume_24h — total monetary volume of transactions over the last 24 hours
+average_transaction_fee_24h — average transaction fee over the last 24 hours
+average_transaction_fee_usd_24h — the same in USD
+median_transaction_fee_24h— median transaction fee over the last 24 hours
+median_transaction_fee_usd_24h — the same in USD
+inflation_24h— number of new coins mined over the last 24 hours (in satoshi), this can be considered as the daily inflation
+inflation_usd_24h — the same in USD
+cdd_24h— total coindays destroyed over the last 24 hours
+largest_transaction_24h — array of hash and value_usd — biggest payment over the last 24 hours
+market_price_usd — average market price of 1 coin in USD (market data source: CoinGecko)
+market_price_btc — average market price of 1 coin in BTC (for Bitcoin it always returns 1)
+market_price_usd_change_24h_percentage — market price change in percent for 24 hours
+market_cap_usd — market capitalization (coins in circulation * price per coin in USD)
+market_dominance_percentage — dominance index (how much % of the total cryptocurrency market is the market capitalization of the coin)
+countdowns (optional) — an optional array of events ([event, time_left] format), where time_left is the number of seconds till the event
+suggested_transaction_fee_per_byte_sat — suggests a proper transaction fee in satoshi per byte based on the latest block
+hodling_addresses — the total number of addresses with positive balance

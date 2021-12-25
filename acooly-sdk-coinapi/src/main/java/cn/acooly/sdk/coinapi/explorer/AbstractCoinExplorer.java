@@ -15,6 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * @author zhangpu
  * @date 2021-08-23 13:39
@@ -88,6 +91,29 @@ public abstract class AbstractCoinExplorer<T> implements CoinExplorer {
 
     protected int getDefaultTimeoutSeconds() {
         return coinApiProperties != null ? coinApiProperties.getExplorer().getTimeoutSeconds() : 10;
+    }
+
+
+    protected String hashRateByEh(String hashRate) {
+        BigDecimal bigDecimal = new BigDecimal(hashRate);
+        BigDecimal result = bigDecimal.divide(BigDecimal.valueOf(1000 ^ 18), 2, RoundingMode.HALF_UP);
+        return result.toPlainString();
+    }
+
+
+    protected BigDecimal storageTo(String byteValue, StorageUnit unit) {
+        BigDecimal bigDecimal = new BigDecimal(byteValue);
+        BigDecimal result = bigDecimal.divide(BigDecimal.valueOf(Math.pow(10, unit.pow)), 2, RoundingMode.HALF_UP);
+        return result;
+    }
+
+    public static enum StorageUnit {
+        B(0), K(3), M(6), G(9), T(12), P(15), E(18);
+        private long pow;
+
+        StorageUnit(long pow) {
+            this.pow = pow;
+        }
     }
 
 }

@@ -9,6 +9,7 @@
 package cn.acooly.sdk.coinapi.explorer.domain;
 
 import com.acooly.core.common.facade.InfoBase;
+import com.acooly.core.utils.Money;
 import lombok.Data;
 import lombok.ToString;
 
@@ -26,6 +27,12 @@ import java.math.RoundingMode;
 @Data
 @ToString
 public class EthereumOverview extends InfoBase {
+
+
+    /**
+     * 当前币价（$ USD）
+     */
+    private Money price;
 
     /**
      * 24小时全网有效算力（和涨跌百分比）

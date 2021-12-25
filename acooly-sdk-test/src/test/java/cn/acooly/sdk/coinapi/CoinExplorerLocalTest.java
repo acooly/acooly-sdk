@@ -12,10 +12,7 @@ import cn.acooly.sdk.coinapi.explorer.ExplorerCacheManager;
 import cn.acooly.sdk.coinapi.explorer.domain.BitcoinOverview;
 import cn.acooly.sdk.coinapi.explorer.domain.EthereumOverview;
 import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
-import cn.acooly.sdk.coinapi.explorer.impl.BitcoinExplorerBtcImpl;
-import cn.acooly.sdk.coinapi.explorer.impl.BitcoinExplorerOklinkImpl;
-import cn.acooly.sdk.coinapi.explorer.impl.EthereumExplorerBtcImpl;
-import cn.acooly.sdk.coinapi.explorer.impl.FilecoinExplorerFilfoxImpl;
+import cn.acooly.sdk.coinapi.explorer.impl.*;
 import cn.acooly.sdk.coinapi.fil.FileCoinNetworkInfo;
 import cn.acooly.sdk.coinapi.fil.impl.FilFoxFileCoinNetworkService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,20 +26,41 @@ import org.junit.Test;
 @Slf4j
 public class CoinExplorerLocalTest {
 
-
+    private EthereumExplorerBlockchairImpl ethereumExplorerBlockchair = new EthereumExplorerBlockchairImpl();
     private EthereumExplorerBtcImpl ethExplorerBtc = new EthereumExplorerBtcImpl();
     private BitcoinExplorerBtcImpl bitcoinExplorerBtc = new BitcoinExplorerBtcImpl();
-    private BitcoinExplorerOklinkImpl bitcoinExplorerOklink = new BitcoinExplorerOklinkImpl();
+    private BitcoinExplorerBlockchairImpl bitcoinExplorerBlockchair = new BitcoinExplorerBlockchairImpl();
     private FilecoinExplorerFilfoxImpl filecoinExplorerFilfox = new FilecoinExplorerFilfoxImpl();
 
+    String PROXY_HOST = "127.0.0.1";
+    int PROXY_PORT = 19180;
 
     @Before
     public void init() {
+
+        System.setProperty("https.proxySet", "true");
+        System.setProperty("https.proxyHost", PROXY_HOST);
+        System.setProperty("https.proxyPort", String.valueOf(PROXY_PORT));
+
         ExplorerCacheManager explorerCacheManager = new ExplorerCacheManager();
+        ethereumExplorerBlockchair.setExplorerCacheManager(explorerCacheManager);
         ethExplorerBtc.setExplorerCacheManager(explorerCacheManager);
         bitcoinExplorerBtc.setExplorerCacheManager(explorerCacheManager);
-        bitcoinExplorerOklink.setExplorerCacheManager(explorerCacheManager);
+        bitcoinExplorerBlockchair.setExplorerCacheManager(explorerCacheManager);
         filecoinExplorerFilfox.setExplorerCacheManager(explorerCacheManager);
+    }
+
+
+    @Test
+    public void testBitcoinOverview() {
+        BitcoinOverview bitcoinOverview = bitcoinExplorerBtc.browse();
+        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
+    }
+
+    @Test
+    public void testBitcoinExplorerBlockchair() {
+        BitcoinOverview bitcoinOverview = bitcoinExplorerBlockchair.browse();
+        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
     }
 
     @Test
@@ -53,16 +71,11 @@ public class CoinExplorerLocalTest {
     }
 
     @Test
-    public void testBitcoinOverview() {
-        BitcoinOverview bitcoinOverview = bitcoinExplorerBtc.browse();
-        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
+    public void testEthereumExplorerBlockchair() {
+        EthereumOverview ethNetOverview = ethereumExplorerBlockchair.browse();
+        log.info("EthereumOverview: {},{}", ethNetOverview, ethNetOverview.getDifficultyByPeta());
     }
 
-    @Test
-    public void testBitcoinExplorerOklink() {
-        BitcoinOverview bitcoinOverview = bitcoinExplorerOklink.browse();
-        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
-    }
 
     @Test
     public void testNewFilecoinOverview() {

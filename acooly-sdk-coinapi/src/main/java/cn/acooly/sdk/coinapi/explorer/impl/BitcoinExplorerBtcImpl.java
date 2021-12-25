@@ -130,6 +130,6 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
+        return Ordered.HIGHEST_PRECEDENCE + 10;
     }
 }

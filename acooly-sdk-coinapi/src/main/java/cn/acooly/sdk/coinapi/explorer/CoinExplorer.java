@@ -9,6 +9,7 @@
 package cn.acooly.sdk.coinapi.explorer;
 
 import cn.acooly.sdk.coinapi.enums.DigitCurrency;
+import com.acooly.core.utils.lang.Named;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.core.Ordered;
 

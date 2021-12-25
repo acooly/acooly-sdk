@@ -20,6 +20,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 /**
@@ -79,6 +80,10 @@ public class EthereumExplorerBtcImpl extends AbstractCoinExplorer<EthereumOvervi
         return DigitCurrency.eth;
     }
 
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE + 10;
+    }
 
     @Override
     protected String handleKey(String title) {
