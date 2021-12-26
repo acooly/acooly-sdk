@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.acooly.sdk.coinapi.platform.coinmarketcap.dbcache.dao.CoinmarketcapQuotesDao">
+
+    <resultMap id="coinmarketcapQuotesResultMap" type="cn.acooly.sdk.coinapi.platform.coinmarketcap.dbcache.entity.CoinmarketcapQuotes">
+        <id property="id" column="coinmarketcapQuotes_id"/>
+        <result property="coinCode" column="coinmarketcapQuotes_coin_code"/>
+        <result property="lastUpdatedMillis" column="coinmarketcapQuotes_last_updated_millis"/>
+        <result property="lastUpdated" column="coinmarketcapQuotes_last_updated"/>
+        <result property="price" column="coinmarketcapQuotes_price"/>
+        <result property="volume24h" column="coinmarketcapQuotes_volume_24h"/>
+        <result property="volumeChange24h" column="coinmarketcapQuotes_volume_change_24h"/>
+        <result property="percentChange1h" column="coinmarketcapQuotes_percent_change_1h"/>
+        <result property="percentChange24h" column="coinmarketcapQuotes_percent_change_24h"/>
+        <result property="percentChange7d" column="coinmarketcapQuotes_percent_change_7d"/>
+        <result property="percentChange30d" column="coinmarketcapQuotes_percent_change_30d"/>
+        <result property="marketCap" column="coinmarketcapQuotes_market_cap"/>
+        <result property="marketCapDominance" column="coinmarketcapQuotes_market_cap_dominance"/>
+        <result property="fullyDilutedMarketCap" column="coinmarketcapQuotes_fully_diluted_market_cap"/>
+        <result property="createTime" column="coinmarketcapQuotes_create_time"/>
+        <result property="updateTime" column="coinmarketcapQuotes_update_time"/>
+        <result property="comments" column="coinmarketcapQuotes_comments"/>
+    </resultMap>
+
+    <sql id="coinmarketcapQuotesSqlSelect">
+            coinmarketcapQuotes.id as coinmarketcapQuotes_id,
+            coinmarketcapQuotes.coin_code as coinmarketcapQuotes_coin_code,
+            coinmarketcapQuotes.last_updated_millis as coinmarketcapQuotes_last_updated_millis,
+            coinmarketcapQuotes.last_updated as coinmarketcapQuotes_last_updated,
+            coinmarketcapQuotes.price as coinmarketcapQuotes_price,
+            coinmarketcapQuotes.volume_24h as coinmarketcapQuotes_volume_24h,
+            coinmarketcapQuotes.volume_change_24h as coinmarketcapQuotes_volume_change_24h,
+            coinmarketcapQuotes.percent_change_1h as coinmarketcapQuotes_percent_change_1h,
+            coinmarketcapQuotes.percent_change_24h as coinmarketcapQuotes_percent_change_24h,
+            coinmarketcapQuotes.percent_change_7d as coinmarketcapQuotes_percent_change_7d,
+            coinmarketcapQuotes.percent_change_30d as coinmarketcapQuotes_percent_change_30d,
+            coinmarketcapQuotes.market_cap as coinmarketcapQuotes_market_cap,
+            coinmarketcapQuotes.market_cap_dominance as coinmarketcapQuotes_market_cap_dominance,
+            coinmarketcapQuotes.fully_diluted_market_cap as coinmarketcapQuotes_fully_diluted_market_cap,
+            coinmarketcapQuotes.create_time as coinmarketcapQuotes_create_time,
+            coinmarketcapQuotes.update_time as coinmarketcapQuotes_update_time,
+            coinmarketcapQuotes.comments as coinmarketcapQuotes_comments
+    </sql>
+
+</mapper>

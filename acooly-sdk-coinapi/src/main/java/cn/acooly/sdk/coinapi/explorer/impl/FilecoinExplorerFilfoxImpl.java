@@ -12,8 +12,8 @@ import cn.acooly.sdk.coinapi.enums.CoinApiErrors;
 import cn.acooly.sdk.coinapi.enums.DigitCurrency;
 import cn.acooly.sdk.coinapi.explorer.AbstractCoinExplorer;
 import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
-import cn.acooly.sdk.coinapi.quote.BinanceQuoteService;
-import cn.acooly.sdk.coinapi.quote.dto.CoinQuote;
+import cn.acooly.sdk.coinapi.platform.binance.BinanceQuoteService;
+import cn.acooly.sdk.coinapi.platform.binance.dto.BinanceCoinQuote;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Money;
 import com.acooly.core.utils.Strings;
@@ -28,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Currency;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * FIL浏览器 from filfox.info
@@ -89,7 +88,7 @@ public class FilecoinExplorerFilfoxImpl extends AbstractCoinExplorer<FilecoinOve
 
     protected Money getPrice() {
         try {
-            CoinQuote quote = binanceQuoteService.quoteUsdt("FIL");
+            BinanceCoinQuote quote = binanceQuoteService.quoteUsdt("FIL");
             return new Money(quote.getPrice().getAmount(), Currency.getInstance("USD"));
         } catch (Exception e) {
             // ig

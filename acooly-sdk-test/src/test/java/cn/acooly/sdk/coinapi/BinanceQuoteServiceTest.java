@@ -8,9 +8,8 @@
  */
 package cn.acooly.sdk.coinapi;
 
-import cn.acooly.sdk.coinapi.explorer.ExplorerCacheManager;
-import cn.acooly.sdk.coinapi.quote.BinanceQuoteService;
-import cn.acooly.sdk.coinapi.quote.dto.CoinQuote;
+import cn.acooly.sdk.coinapi.platform.binance.BinanceQuoteService;
+import cn.acooly.sdk.coinapi.platform.binance.dto.BinanceCoinQuote;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +44,7 @@ public class BinanceQuoteServiceTest {
     @Test
     public void testQuoteUsdt() {
         long start = System.currentTimeMillis();
-        CoinQuote filQuote = null;
+        BinanceCoinQuote filQuote = null;
         try {
             filQuote = binanceQuoteService.quoteUsdt("FIL");
         } finally {

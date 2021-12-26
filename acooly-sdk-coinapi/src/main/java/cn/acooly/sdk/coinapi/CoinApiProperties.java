@@ -1,6 +1,7 @@
 package cn.acooly.sdk.coinapi;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -34,6 +35,12 @@ public class CoinApiProperties {
     private Gateway tianapi = new Gateway("http://api.tianapi.com",
             null, null);
 
+    /**
+     * coinmarketcap
+     */
+    private Coinmarketcap coinmarketcap = new Coinmarketcap("https://pro-api.coinmarketcap.com",
+            null, "31f2aab7-d120-41f9-8812-8b26245165d9");
+
 
     @Data
     public static class Cache {
@@ -52,11 +59,11 @@ public class CoinApiProperties {
         private int size = 20;
     }
 
-
     /**
      * 网关配置
      */
     @Data
+    @NoArgsConstructor
     public static class Gateway {
         /**
          * 网关地址
@@ -79,8 +86,16 @@ public class CoinApiProperties {
          */
         private int readTimeout = 5;
 
+        public int getConnTimeoutMillis() {
+            return this.connTimeout * 1000;
+        }
 
-        public Gateway() {
+        public int getReadTimeoutMillis() {
+            return this.readTimeout * 1000;
+        }
+
+        public Gateway(String url) {
+            this.url = url;
         }
 
         public Gateway(String url, String accessKey, String secretKey) {
@@ -91,13 +106,24 @@ public class CoinApiProperties {
     }
 
     @Data
+    @NoArgsConstructor
+    public static class Coinmarketcap extends Gateway {
+
+        public Coinmarketcap(String url, String accessKey, String secretKey) {
+            super(url, accessKey, secretKey);
+        }
+
+        private boolean scheduleEnable = true;
+        private int scheduleInterval = 60 * 1000;
+    }
+
+    @Data
     public static class Explorer {
         private Cache cache = new Cache();
         /**
          * 默认超时时间
          */
         private int timeoutSeconds = 10;
-
     }
 
 }

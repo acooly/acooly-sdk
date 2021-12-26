@@ -11,12 +11,14 @@ package cn.acooly.sdk.swft;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author zhangpu
  * @date 2021-09-16 23:05
  */
 @Data
+@ConfigurationProperties(SwftProperties.PREFIX)
 public class SwftProperties {
 
     public static final String PREFIX = "acooly.sdk.swft";

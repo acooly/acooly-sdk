@@ -15,7 +15,7 @@ import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
 import cn.acooly.sdk.coinapi.explorer.impl.*;
 import cn.acooly.sdk.coinapi.fil.FileCoinNetworkInfo;
 import cn.acooly.sdk.coinapi.fil.impl.FilFoxFileCoinNetworkService;
-import cn.acooly.sdk.coinapi.quote.BinanceQuoteService;
+import cn.acooly.sdk.coinapi.platform.binance.BinanceQuoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;

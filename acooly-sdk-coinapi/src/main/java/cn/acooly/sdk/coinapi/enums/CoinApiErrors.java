@@ -22,7 +22,9 @@ import java.util.Map;
 public enum CoinApiErrors implements Messageable {
     NETWORK_ERROR("NETWORK_ERROR", "网络异常"),
 
-    DATA_PARSE_ERROR("DATA_PARSE_ERROR","解析错误");
+    GATEWAY_SERVER_ERROR("GATEWAY_SERVER_ERROR", "网关错误"),
+
+    DATA_PARSE_ERROR("DATA_PARSE_ERROR", "解析错误");
 
     private final String code;
     private final String message;
