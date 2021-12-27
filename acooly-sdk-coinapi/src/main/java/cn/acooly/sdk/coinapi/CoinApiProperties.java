@@ -113,8 +113,14 @@ public class CoinApiProperties {
             super(url, accessKey, secretKey);
         }
 
-        private boolean scheduleEnable = true;
-        private int scheduleInterval = 60 * 1000;
+        /**
+         * 是否开启本地定时任务调度
+         */
+        private boolean scheduleEnable = false;
+        /**
+         * 本地定时任务调度间隔时间，默认30分钟
+         */
+        private int scheduleInterval = 60 * 30 * 1000;
     }
 
     @Data

@@ -18,6 +18,12 @@
 
 
         <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-security</artifactId>
+        </dependency>
+
+
+        <dependency>
             <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-aliyun-express</artifactId>
             <version>${project.parent.version}</version>
