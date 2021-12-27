@@ -182,11 +182,15 @@ public interface CoinApiService extends Named, Ordered {
 }
 ```
 
-## 扩展
-
-如果集成项目希望自己扩展数据提供方，可以在目标集成工程内实现`CoinApiService`接口，并通过`@Component`注入到Spring容器中，及可用。
+>如果集成项目希望自己扩展数据提供方，可以在目标集成工程内实现`CoinApiService`接口，并通过`@Component`注入到Spring容器中，及可用。
 
 # changelog
+
+## 5.0.0-SNAPSHOT.20211227
+
+* 2021-12-27 - 数字货币报价SDK集成coinmarketcap平台API，并采用数据库缓存方式提供本地查询服务 - [zhangpu] 4f57d3d
+* 2021-12-25 - 完成数字货币浏览器扩展：增加每种货币的当前价格 - [zhangpu] 86991b3
+* 2021-12-25 - 数字货币浏览器增加BTC和ETH的Blockchair的API提供集成，并设置为最高优先级。- [zhangpu] 584f172
 
 ## 5.0.0-SNAPSHOT.20210824
 
