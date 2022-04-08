@@ -21,6 +21,7 @@
         <module>acooly-sdk-swft</module>
         <module>acooly-sdk-common</module>
         <module>acooly-sdk-aliyun</module>
+        <module>acooly-sdk-wecom</module>
     </modules>
 
     <build>
