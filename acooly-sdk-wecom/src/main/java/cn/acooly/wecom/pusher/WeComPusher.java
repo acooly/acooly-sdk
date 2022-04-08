@@ -8,6 +8,7 @@
  */
 package cn.acooly.wecom.pusher;
 
+import cn.acooly.wecom.pusher.message.TextWeComMsg;
 import cn.acooly.wecom.pusher.message.WeComMsg;
 import cn.acooly.wecom.pusher.message.WeComResult;
 import com.acooly.core.common.exception.BusinessException;
@@ -56,4 +57,11 @@ public class WeComPusher {
         }
     }
 
+
+    public static void main(String[] args) {
+        TextWeComMsg weComMsg = new TextWeComMsg("这是推送的文本信息");
+        // 添加@的手机号码
+        weComMsg.addMentionedMobileNo("123412341234");
+        WeComPusher.push(weComMsg,"https://企业微信机器人地址");
+    }
 }
