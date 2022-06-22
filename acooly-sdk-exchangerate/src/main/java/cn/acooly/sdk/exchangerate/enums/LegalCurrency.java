@@ -37,7 +37,15 @@ public enum LegalCurrency implements Messageable {
     KRW("KRW", "韩元", "₩", 410, 0),
     AUD("AUD", "澳元", "", 36, 2),
     CAD("CAD", "加元", "", 124, 2),
-    TRY("TRY", "土耳其里拉", "", 949, 2);
+    TRY("TRY", "土耳其里拉", "", 949, 2),
+    PLN("PLN", "波兰兹罗提", "", 985, 2),
+    HUF("HUF", "匈牙利福林", "", 348, 2),
+    DKK("DKK", "丹麦克朗", "", 208, 2),
+    MAD("MAD", "摩洛哥迪拉姆", "", 504, 2),
+    NOK("NOK", "挪威克朗", "", 578, 2),
+    CZK("CZK", "捷克克朗", "", 203, 2),
+    CHF("CHF", "瑞士法郎", "", 756, 2),
+    ;
 
     private final String code;
     private final String message;
