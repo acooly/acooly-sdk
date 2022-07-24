@@ -15,7 +15,6 @@ import cn.acooly.sdk.coinapi.explorer.domain.BitcoinOverview;
 import cn.acooly.sdk.coinapi.explorer.dto.BlockchairBitcoin;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Money;
-import com.acooly.core.utils.mapper.JsonMapper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.kevinsawicki.http.HttpRequest;
@@ -24,7 +23,6 @@ import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  * BTC浏览器 from blockchair
@@ -71,7 +69,7 @@ public class BitcoinExplorerBlockchairImpl extends AbstractCoinExplorer<BitcoinO
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
+        return Ordered.HIGHEST_PRECEDENCE + 10;
     }
 
 }

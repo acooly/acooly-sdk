@@ -33,8 +33,11 @@ public class CoinExplorerLocalTest {
 
     private EthereumExplorerBlockchairImpl ethereumExplorerBlockchair = new EthereumExplorerBlockchairImpl();
     private EthereumExplorerBtcImpl ethExplorerBtc = new EthereumExplorerBtcImpl();
+
     private BitcoinExplorerBtcImpl bitcoinExplorerBtc = new BitcoinExplorerBtcImpl();
     private BitcoinExplorerBlockchairImpl bitcoinExplorerBlockchair = new BitcoinExplorerBlockchairImpl();
+    private BitcoinExplorerOklinkImpl bitcoinExplorerOklink = new BitcoinExplorerOklinkImpl();
+
     private FilecoinExplorerFilfoxImpl filecoinExplorerFilfox = new FilecoinExplorerFilfoxImpl();
 
     String PROXY_HOST = "127.0.0.1";
@@ -53,6 +56,7 @@ public class CoinExplorerLocalTest {
 
         bitcoinExplorerBtc.setExplorerCacheManager(explorerCacheManager);
         bitcoinExplorerBlockchair.setExplorerCacheManager(explorerCacheManager);
+        bitcoinExplorerOklink.setExplorerCacheManager(explorerCacheManager);
 
         filecoinExplorerFilfox.setExplorerCacheManager(explorerCacheManager);
         filecoinExplorerFilfox.setBinanceQuoteService(binanceQuoteService);
@@ -62,13 +66,19 @@ public class CoinExplorerLocalTest {
     @Test
     public void testBitcoinOverview() {
         BitcoinOverview bitcoinOverview = bitcoinExplorerBtc.browse();
-        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
+        log.info("{},{}", bitcoinExplorerBtc.getClass().getSimpleName(), bitcoinOverview);
     }
 
     @Test
     public void testBitcoinExplorerBlockchair() {
         BitcoinOverview bitcoinOverview = bitcoinExplorerBlockchair.browse();
-        log.info("BitcoinOverview: {},{}", bitcoinOverview, bitcoinOverview.getDifficultyByTera());
+        log.info("{},{}", bitcoinExplorerBlockchair.getClass().getSimpleName(), bitcoinOverview);
+    }
+
+    @Test
+    public void testBitcoinExplorerOklink() {
+        BitcoinOverview bitcoinOverview = bitcoinExplorerOklink.browse();
+        log.info("{}: {}", bitcoinExplorerOklink.getClass().getName(), bitcoinOverview);
     }
 
     @Test
