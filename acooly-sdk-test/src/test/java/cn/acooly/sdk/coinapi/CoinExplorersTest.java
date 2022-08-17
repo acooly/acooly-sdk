@@ -14,6 +14,7 @@ import cn.acooly.sdk.coinapi.explorer.domain.EthereumOverview;
 import cn.acooly.sdk.coinapi.explorer.domain.FilecoinOverview;
 import cn.acooly.sdk.test.NoWebTestBase;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +27,16 @@ public class CoinExplorersTest extends NoWebTestBase {
 
     @Autowired
     CoinExplorerService coinExplorerService;
+
+    String PROXY_HOST = "127.0.0.1";
+    int PROXY_PORT = 19180;
+
+    @Before
+    public void init() {
+        System.setProperty("https.proxySet", "true");
+        System.setProperty("https.proxyHost", PROXY_HOST);
+        System.setProperty("https.proxyPort", String.valueOf(PROXY_PORT));
+    }
 
     @Test
     public void testBitcoinOverview() {

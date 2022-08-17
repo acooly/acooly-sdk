@@ -206,6 +206,11 @@ public interface CoinApiService extends Named, Ordered {
 
 * 提供基于数据抓取的FIL全网基础数据查询
 
+## 5.0.0-SNAPSHOT.20220724
+
+* 2022-07-24 - 优先级最高的btc.com在本地测试时需要"合理上网"配置代理，在单元测试中设置并测试通过`CoinExplorersTest`。 - [zhangpu] 4f644a3
+* 2022-07-24 - 优化btc.com的BTC浏览器解析，增加当前价格；调整优先级为 btc.com -> blockchair(无PPS数据) - [zhangpu] cb1d13d
+
 ## 5.0.0-SNAPSHOT.20210604
 
 2021-06-04

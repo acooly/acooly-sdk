@@ -63,6 +63,11 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
                 }
 
             }
+
+            String price = doParsePrice(doc);
+            if (Strings.isNotBlank(price)) {
+                sb.append(", \"price\":").append(price);
+            }
             sb.append("}");
             String json = sb.toString();
             log.info("Bitcoin Overview: {}", json);
@@ -70,8 +75,34 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
             return info;
         } catch (Exception e) {
             log.warn("Bitcoin Overview 错误: {}", e.getMessage());
-            throw new BusinessException(CoinApiErrors.DATA_PARSE_ERROR, "Ethereum网络或数据解析错误");
+            throw new BusinessException(CoinApiErrors.DATA_PARSE_ERROR, "网络或数据解析错误");
         }
+    }
+
+    /**
+     * 单独解析当前价格（USD）
+     *
+     * @param doc
+     * @return
+     * @throws Exception
+     */
+    protected String doParsePrice(Document doc) throws Exception {
+        Elements elements = doc.select("div.home_chain-number__1LLHp");
+        String priceText = null;
+        for (int i = 0; i < elements.size(); i++) {
+            Element e = elements.get(i);
+            if (e.childNodeSize() != 2) {
+                continue;
+            }
+            Element ePrice = e.child(0);
+            if (ePrice != null) {
+                priceText = ePrice.text();
+                break;
+            }
+        }
+        priceText = Strings.trimToEmpty(Strings.remove(priceText, "$"));
+        priceText = Strings.trimToEmpty(Strings.remove(priceText, ","));
+        return priceText;
     }
 
     @Override
@@ -130,6 +161,6 @@ public class BitcoinExplorerBtcImpl extends AbstractCoinExplorer<BitcoinOverview
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE + 10;
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }
