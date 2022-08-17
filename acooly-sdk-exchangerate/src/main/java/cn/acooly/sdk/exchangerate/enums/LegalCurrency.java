@@ -45,6 +45,7 @@ public enum LegalCurrency implements Messageable {
     NOK("NOK", "挪威克朗", "", 578, 2),
     CZK("CZK", "捷克克朗", "", 203, 2),
     CHF("CHF", "瑞士法郎", "", 756, 2),
+    SAR("SAR", "沙特里亚尔", "", 682, 2),
     ;
 
     private final String code;
