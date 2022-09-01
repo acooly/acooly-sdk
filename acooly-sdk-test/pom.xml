@@ -5,7 +5,7 @@
     <parent>
         <groupId>cn.acooly</groupId>
         <artifactId>acooly-sdk</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
+        <version>5.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>acooly-sdk-test</artifactId>
@@ -84,7 +84,7 @@
         <dependency>
             <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-filecoin</artifactId>
-            <version>5.0.0-SNAPSHOT</version>
+            <version>5.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
