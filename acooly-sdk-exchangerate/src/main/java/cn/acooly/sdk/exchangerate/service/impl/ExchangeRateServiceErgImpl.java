@@ -180,7 +180,8 @@ public class ExchangeRateServiceErgImpl implements ExchangeRateService {
                     .get();
             Element resultEle = doc.selectFirst(".result-cur2");
             if (resultEle != null) {
-                String toAmount = resultEle.selectFirst("span").text();
+                // 去除科学计数法的逗号
+                String toAmount = resultEle.selectFirst("span").text().replaceAll(",", "");
                 BigDecimal amount = new BigDecimal(toAmount);
                 amount.setScale(4, BigDecimal.ROUND_HALF_UP);
                 return amount;
