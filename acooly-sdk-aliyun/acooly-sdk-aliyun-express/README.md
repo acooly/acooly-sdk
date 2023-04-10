@@ -82,6 +82,11 @@ acooly.sdk.aliyun.app-code=acddxxxxxxxxxxxxx75618947ddd
 1. 集成和配置完成后，直接在目标工程和模块注入`ExpressService`服务，调用：`ExpressService.track`方法，根据快递单号查询快递信息和配送轨迹信息,但该轨迹没有状态信息。
 2. 推荐使用服务`ExpressQueryService.query(...)`，提供统一的快递查询和详细轨迹查询。
 
+可参考：
+
+1. 单元测试：acooly-sdk-test模块下：`cn.acooly.sdk.aliyun.ExpressQueryServiceTest`
+2. 控制器测试：acooly-sdk-test模块下：`cn.acooly.sdk.aliyun.express.ExpressQueryTestController`
+
 # changelog
 
 # 5.2.0-SNAPSHOT.20230410
