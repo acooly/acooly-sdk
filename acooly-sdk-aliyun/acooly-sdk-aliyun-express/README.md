@@ -41,9 +41,9 @@ acooly.sdk.aliyun.app-key=xxxxx
 acooly.sdk.aliyun.app-secret=yyyyy
 ```
 
->认证：阿里云市场的API产品的安全认证方式是由产品确定的，具体使用那种认证，就必须配置以上对应的身份认证参数。比如该组件`acooly-sdk-aliyun-express`的提供方选择的是`appCode`方式简单认证，所以该组件`acooly.sdk.aliyun.app-code`参数为必填。
+> 认证：阿里云市场的API产品的安全认证方式是由产品确定的，具体使用那种认证，就必须配置以上对应的身份认证参数。比如该组件`acooly-sdk-aliyun-express`的提供方选择的是`appCode`方式简单认证，所以该组件`acooly.sdk.aliyun.app-code`参数为必填。
 
->来源：以上上个参数来源与你购买了阿里云市场产品后，在你的阿里云`控制台`->`云市场`-`已购买的服务`模块中查看。
+> 来源：以上上个参数来源与你购买了阿里云市场产品后，在你的阿里云`控制台`->`云市场`-`已购买的服务`模块中查看。
 
 ## SDK组件参数配置
 
@@ -79,9 +79,19 @@ acooly.sdk.aliyun.app-code=acddxxxxxxxxxxxxx75618947ddd
 
 # 使用
 
-集成和配置完成后，直接在目标工程和模块注入`ExpressService`服务，调用：`ExpressService.track`方法，根据快递单号查询快递信息和配送轨迹信息。
+1. 集成和配置完成后，直接在目标工程和模块注入`ExpressService`服务，调用：`ExpressService.track`方法，根据快递单号查询快递信息和配送轨迹信息,但该轨迹没有状态信息。
+2. 推荐使用服务`ExpressQueryService.query(...)`，提供统一的快递查询和详细轨迹查询。
+
+可参考：
+
+1. 单元测试：acooly-sdk-test模块下：`cn.acooly.sdk.aliyun.ExpressQueryServiceTest`
+2. 控制器测试：acooly-sdk-test模块下：`cn.acooly.sdk.aliyun.express.ExpressQueryTestController`
 
 # changelog
+
+# 5.2.0-SNAPSHOT.20230410
+
+* 新增支持详细轨迹查询的快递查询服务`ExpressQueryService.query(...)`
 
 # 5.0.0-SNAPSHOT.20211014
 

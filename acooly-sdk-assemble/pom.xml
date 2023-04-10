@@ -22,6 +22,12 @@
             <artifactId>acooly-component-security</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.acooly</groupId>
+            <artifactId>acooly-sdk-test</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>cn.acooly</groupId>
@@ -39,6 +45,7 @@
             <artifactId>acooly-sdk-coinapi</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

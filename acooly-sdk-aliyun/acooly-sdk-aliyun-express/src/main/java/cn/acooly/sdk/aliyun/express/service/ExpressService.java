@@ -14,9 +14,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 
 /**
+ * 快递查询服务 v1 支持简单轨迹查询
+ *
  * @author zhangpu
  * @date 2021-10-14 10:21
  */
+@Deprecated
 public interface ExpressService {
 
 

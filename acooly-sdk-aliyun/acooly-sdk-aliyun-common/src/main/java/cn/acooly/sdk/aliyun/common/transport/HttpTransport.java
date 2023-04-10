@@ -17,6 +17,8 @@ import com.acooly.core.utils.Encodes;
 import com.acooly.core.utils.Strings;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.common.collect.Maps;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,6 +33,8 @@ import java.util.Map;
  * @date 2021-10-13 23:23
  */
 @Slf4j
+@Getter
+@Setter
 public class HttpTransport {
 
     @Autowired(required = false)
@@ -38,8 +42,14 @@ public class HttpTransport {
 
     private AliyunMarketConfig aliyunMarketConfig;
 
+    /**
+     * 默认网关地址
+     */
+    private String gateway;
+
     public HttpTransport(AliyunMarketConfig aliyunMarketConfig) {
         this.aliyunMarketConfig = aliyunMarketConfig;
+        this.gateway = aliyunMarketConfig.getGateway();
     }
 
     public AliyunResponse request(AliyunRequest request) {
@@ -87,7 +97,7 @@ public class HttpTransport {
     private String getUrl(AliyunRequest request) {
         String url = request.getUrl();
         if (!Strings.isHttpUrl(url)) {
-            url = aliyunMarketConfig.getGateway() + url;
+            url = getGateway() + url;
         }
         url = url + "?1=1";
         StringBuilder sb = new StringBuilder(url);
@@ -108,5 +118,6 @@ public class HttpTransport {
 
         return null;
     }
+
 
 }
