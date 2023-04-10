@@ -33,4 +33,24 @@ public interface ExpressQueryService {
      */
     ExpressInfo query(@NotBlank String mailNo, @Null String expressCompanyCode, @Null String mobileNo);
 
+    /**
+     * 顺丰查询（需要提供收或寄的手机号码）
+     *
+     * @param mailNo
+     * @param mobileNo
+     * @return
+     */
+    default ExpressInfo query(@NotBlank String mailNo, @Null String mobileNo) {
+        return query(mailNo, null, mobileNo);
+    }
+
+    /**
+     * 查询（推荐）
+     *
+     * @param mailNo
+     * @return
+     */
+    default ExpressInfo query(@NotBlank String mailNo) {
+        return query(mailNo, null, null);
+    }
 }

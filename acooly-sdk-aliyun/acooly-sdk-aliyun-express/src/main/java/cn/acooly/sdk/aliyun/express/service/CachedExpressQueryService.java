@@ -11,6 +11,7 @@ package cn.acooly.sdk.aliyun.express.service;
 import cn.acooly.sdk.aliyun.common.transport.HttpTransport;
 import cn.acooly.sdk.aliyun.express.AliyunExpressProperties;
 import cn.acooly.sdk.aliyun.express.domain.ExpressInfo;
+import com.acooly.core.utils.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -48,7 +49,17 @@ public abstract class CachedExpressQueryService implements ExpressQueryService {
                 setCache(mailNo, expressCompanyCode, expressInfo);
             }
         }
+        doAfterQuery(expressInfo);
         return expressInfo;
+    }
+
+    /**
+     * 查询（含缓存）后的后置处理
+     *
+     * @param expressInfo
+     */
+    protected void doAfterQuery(ExpressInfo expressInfo) {
+
     }
 
     /**
@@ -81,7 +92,7 @@ public abstract class CachedExpressQueryService implements ExpressQueryService {
      * @return
      */
     protected String getCacheKey(String mailNo, String expressCompanyCode) {
-        return CACHE_KEY_PREFIX + "." + expressCompanyCode + "." + mailNo;
+        return CACHE_KEY_PREFIX + "." + Strings.trimToEmpty(expressCompanyCode) + "." + mailNo;
     }
 
 }

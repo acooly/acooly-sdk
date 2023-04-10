@@ -23,15 +23,34 @@ public enum ExpSubStatusEnum implements Messageable {
 
     RECEIVE("RECEIVE", "接单中", ExpStatusEnum.WAIT_ACCEPT),
     WAIT_ACCEPT("WAIT_ACCEPT", "待揽收", ExpStatusEnum.WAIT_ACCEPT),
+    ACCEPT("ACCEPT", "已揽收", ExpStatusEnum.ACCEPT),
 
-    // 未完待继续... https://market.aliyun.com/products/57126001/cmapi00054243.html?spm=5176.730005.result.1.4c913524ABlUgX&innerSource=search_%E5%BF%AB%E9%80%92%E7%89%A9%E6%B5%81%E6%9F%A5%E8%AF%A2#sku=yuncode4824300001
-    // todo: 待处理为完成的状态
-    ;
+    TRANSPORT("TRANSPORT", "运输中", ExpStatusEnum.TRANSPORT),
+    SEND_ON("SEND_ON", "转单或修改地址转寄", ExpStatusEnum.TRANSPORT),
+    ARRIVE_CITY("ARRIVE_CITY", "到达目的城市", ExpStatusEnum.TRANSPORT),
+
+    DELIVERING("DELIVERING", "派件中", ExpStatusEnum.DELIVERING),
+    STA_INBOUND("STA_INBOUND", "已放入快递柜或驿站", ExpStatusEnum.DELIVERING),
+
+    AGENT_SIGN("AGENT_SIGN", "已代签收", ExpStatusEnum.AGENT_SIGN),
+
+    SIGN("SIGN", "已签收", ExpStatusEnum.SIGN),
+    STA_SIGN("STA_SIGN", "从快递柜或驿站取出", ExpStatusEnum.SIGN),
+    RETURN_SIGN("RETURN_SIGN", "退回签收", ExpStatusEnum.SIGN),
+
+    FAILED("FAILED", "包裹异常", ExpStatusEnum.FAILED),
+    REFUSE_SIGN("REFUSE_SIGN", "拒收", ExpStatusEnum.FAILED),
+    DELIVER_ABNORMAL("DELIVER_ABNORMAL", "派件异常", ExpStatusEnum.FAILED),
+    RETENTION("RETENTION", "滞留件", ExpStatusEnum.FAILED),
+    ISSUE("ISSUE", "问题件", ExpStatusEnum.FAILED),
+    RETURN("RETURN", "退回件", ExpStatusEnum.FAILED),
+    DAMAGE("DAMAGE", "破损", ExpStatusEnum.FAILED),
+    CANCEL_ORDER("CANCEL_ORDER", "揽件取消", ExpStatusEnum.FAILED);
 
     private final String code;
     private final String message;
     private final ExpStatusEnum mainStatus;
-    
+
     ExpSubStatusEnum(String code, String message, ExpStatusEnum mainStatus) {
         this.code = code;
         this.message = message;

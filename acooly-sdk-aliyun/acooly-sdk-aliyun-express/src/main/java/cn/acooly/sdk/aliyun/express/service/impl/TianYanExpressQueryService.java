@@ -63,9 +63,11 @@ public class TianYanExpressQueryService extends CachedExpressQueryService implem
         }
         request.setParams(params);
         request.setUrl(path);
-        AliyunResponse response = transport.request(request);
-        String respBody = response.getBody();
         try {
+            log.info("request: url:{}, params:{}", request.getUrl(), params);
+            AliyunResponse response = transport.request(request);
+            String respBody = response.getBody();
+            log.info("response: {}", respBody);
             ExpResult expResult = JsonMapper.nonEmptyMapper().fromJson(respBody, ExpResult.class);
             if (!expResult.isSuccess()) {
                 // 未成功，则抛出异常，附带错误码和错误信息
@@ -80,12 +82,32 @@ public class TianYanExpressQueryService extends CachedExpressQueryService implem
         }
     }
 
+    @Override
+    protected void doAfterQuery(ExpressInfo expressInfo) {
+        List<ExpressTrack> expressTracks = Lists.newArrayList();
+        Map<String, Set<ExpressTrack>> expressTrackMap = Maps.newHashMap();
+        for (ExpressTrack expressTrack : expressInfo.getExpressTracks()) {
+            if (Collections3.isEmpty(expressTrackMap.get(expressTrack.getStatusText()))) {
+                expressTrackMap.put(expressTrack.getStatusText(), Sets.newHashSet());
+            }
+            expressTrackMap.get(expressTrack.getStatusText()).add(expressTrack);
+        }
+        expressInfo.setExpressTrackMap(expressTrackMap);
+    }
+
     protected ExpressInfo convert(ExpResult result) {
         ExpInfo info = Collections3.getFirst(result.getData().getInfo());
         ExpressInfo expressInfo = new ExpressInfo();
         // 快递基本信息
         expressInfo.setMailNo(info.getMailNo());
-        expressInfo.setLastTime(Dates.parse(info.getTheLastTime()));
+        if (Strings.isNotBlank(info.getTheLastTime())) {
+            try {
+                expressInfo.setLastTime(Dates.parse(info.getTheLastTime()));
+            } catch (Exception e) {
+                // ignore error throw
+                log.warn("日期解析转换错误:{}", e.getMessage());
+            }
+        }
         expressInfo.setLastMessage(info.getTheLastMessage());
         expressInfo.setTaskTime(info.getTakeTime());
         expressInfo.setLastStatus(info.getLogisticsStatus());
@@ -99,24 +121,21 @@ public class TianYanExpressQueryService extends CachedExpressQueryService implem
         expressInfo.setExpressCompany(ec);
         // 快递轨迹信息
         List<ExpTrack> tracks = info.getLogisticsTraceDetailList();
+        if (Collections3.isEmpty(tracks)) {
+            return expressInfo;
+        }
+
         List<ExpressTrack> expressTracks = Lists.newArrayList();
-        Map<String, Set<ExpressTrack>> expressTrackMap = Maps.newHashMap();
         for (ExpTrack track : tracks) {
-            ExpressTrack expressTrack = convert(track);
-            expressTracks.add(expressTrack);
-            if (Collections3.isEmpty(expressTrackMap.get(track.getLogisticsStatus()))) {
-                expressTrackMap.put(track.getLogisticsStatus(), Sets.newHashSet());
-            }
-            expressTrackMap.get(track.getLogisticsStatus()).add(expressTrack);
+            expressTracks.add(convert(track));
         }
         expressInfo.setExpressTracks(expressTracks);
-        expressInfo.setExpressTrackMap(expressTrackMap);
         return expressInfo;
     }
 
+
     /**
      * 轨迹对象转换
-     * todo：待处理异常情况的转换
      *
      * @param track
      * @return
