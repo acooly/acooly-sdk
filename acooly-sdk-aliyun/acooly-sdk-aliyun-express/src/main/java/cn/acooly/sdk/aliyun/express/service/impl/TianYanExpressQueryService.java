@@ -84,7 +84,9 @@ public class TianYanExpressQueryService extends CachedExpressQueryService implem
 
     @Override
     protected void doAfterQuery(ExpressInfo expressInfo) {
-        List<ExpressTrack> expressTracks = Lists.newArrayList();
+        if (Collections3.isEmpty(expressInfo.getExpressTracks())) {
+            return;
+        }
         Map<String, Set<ExpressTrack>> expressTrackMap = Maps.newHashMap();
         for (ExpressTrack expressTrack : expressInfo.getExpressTracks()) {
             if (Collections3.isEmpty(expressTrackMap.get(expressTrack.getStatusText()))) {
