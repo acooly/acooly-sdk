@@ -152,3 +152,4 @@ pip-log.txt
 # Mac crap
 .DS_Store
 /.gitignore
+/acooly-sdk-test/src/test/resources/application-local.properties

@@ -24,6 +24,7 @@
         <module>acooly-sdk-common</module>
         <module>acooly-sdk-aliyun</module>
         <module>acooly-sdk-wecom</module>
+        <module>acooly-sdk-openai</module>
     </modules>
 
 

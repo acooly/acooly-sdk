@@ -22,6 +22,12 @@
 
         <dependency>
             <groupId>cn.acooly</groupId>
+            <artifactId>acooly-sdk-openai</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-swft</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
