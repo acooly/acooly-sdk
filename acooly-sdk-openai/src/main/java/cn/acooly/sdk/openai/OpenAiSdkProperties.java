@@ -18,6 +18,10 @@ public class OpenAiSdkProperties {
      * 网关配置
      */
     private Gateway gateway = new Gateway();
+    /**
+     * 网络代理
+     */
+    private Proxy proxy = new Proxy();
 
     public OpenAiSdkProperties(String url, String token) {
         this.gateway.setUrl(url);
@@ -46,14 +50,28 @@ public class OpenAiSdkProperties {
          * 读取超时时长(秒)
          */
         private int readTimeout = 10;
-
-
-        public Gateway() {
-        }
-
-        public Gateway(String url, String token) {
-            this.url = url;
-            this.key = token;
-        }
     }
+
+    /**
+     * 代理配置
+     */
+    @Data
+    public static class Proxy {
+
+        /**
+         * 是否开启代理，默认false
+         */
+        private boolean enable = false;
+
+        /**
+         * 代理服务地址
+         */
+        private String host = "127.0.0.1";
+        /**
+         * 代理服务端口
+         */
+        private int port = 19180;
+    }
+
+
 }
