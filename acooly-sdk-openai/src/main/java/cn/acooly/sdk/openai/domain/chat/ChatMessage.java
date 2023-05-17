@@ -31,7 +31,7 @@ public class ChatMessage {
     /**
      * 消息角色
      * The role of the author of this message. One of system, user, or assistant.
-     * system: 系统消息，一般用于对话开始，告诉AI本次会话的主题。
+     * system: 系统消息，一般用于对话开始，告诉AI本次会话的主题,或者是提示，比如：翻译以下的文字；做总结等。
      * user: 用户消息，也就是用户文档问题
      * assistant: AI助手消息，也就是AI的回答
      */

@@ -42,7 +42,6 @@ public class OpenAiSdkServiceTest extends OpenAiProxyTest {
         log.info("{}", openAiSdkService.listModels());
     }
 
-
     @Before
     public void setUp() throws Exception {
         OpenAiSdkProperties properties = new OpenAiSdkProperties();
