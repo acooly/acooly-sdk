@@ -8,6 +8,7 @@
  */
 package cn.acooly.sdk.openai.domain.chat;
 
+import cn.acooly.sdk.openai.domain.Usage;
 import com.acooly.core.utils.Collections3;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
@@ -34,7 +35,7 @@ public class ChatResponse {
     @JSONField(name = "model")
     private String model;
     @JSONField(name = "usage")
-    private ChatUsage usage;
+    private Usage usage;
     @JSONField(name = "choices")
     private List<ChatChoices> choices;
 

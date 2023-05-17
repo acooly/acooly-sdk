@@ -28,6 +28,32 @@ public class OpenAiApiTest extends OpenAiProxyTest {
      * 支持的Models列表
      */
     @Test
+    public void editText() {
+        String url = "https://api.openai.com/v1/edits";
+        Map<String, Object> map = new HashMap<>();
+        map.put("model", "text-davinci-edit-001");
+        map.put("input", "今天星几？");
+        map.put("instruction", "Fix the spelling mistakes");
+        String result = doPost(url, JSON.toJSONString(map));
+        log.info("edits result:\n{}", result);
+    }
+
+
+    @Test
+    public void editCode() {
+        String url = "https://api.openai.com/v1/edits";
+        Map<String, Object> map = new HashMap<>();
+        map.put("model", "code-davinci-edit-001");
+        map.put("input", "if(1=1){\n    System.out.println(\"Hello World!\");\n}");
+        map.put("instruction", "Fix the code mistakes");
+        String result = doPost(url, JSON.toJSONString(map));
+        log.info("edits result:\n{}", result);
+    }
+
+    /**
+     * 支持的Models列表
+     */
+    @Test
     public void listModels() {
         String url = "https://api.openai.com/v1/models";
         String result = doGet(url);

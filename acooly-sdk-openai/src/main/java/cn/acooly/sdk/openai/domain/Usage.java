@@ -6,7 +6,7 @@
  * @author zhangpu
  * @date 2023-05-14 20:36
  */
-package cn.acooly.sdk.openai.domain.chat;
+package cn.acooly.sdk.openai.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @Data
 @Slf4j
-public class ChatUsage {
+public class Usage {
     @JSONField(name = "prompt_tokens")
     private Integer promptTokens;
     @JSONField(name = "completion_tokens")

@@ -10,6 +10,8 @@ package cn.acooly.sdk.openai.service;
 
 import cn.acooly.sdk.openai.domain.chat.ChatRequest;
 import cn.acooly.sdk.openai.domain.chat.ChatResponse;
+import cn.acooly.sdk.openai.domain.edit.EditRequest;
+import cn.acooly.sdk.openai.domain.edit.EditResponse;
 import cn.acooly.sdk.openai.domain.model.Model;
 import cn.acooly.sdk.openai.domain.model.Models;
 import cn.acooly.sdk.openai.support.JsonHttpTransport;
@@ -74,4 +76,21 @@ public class OpenAiSdkService {
         ChatResponse response = JSON.parseObject(body, ChatResponse.class);
         return response;
     }
+
+    /**
+     * AI修正
+     * 支持的模式：
+     * text-davinci-edit-001：修正文本
+     * code-davinci-edit-001：修正代码
+     *
+     * @param editRequest
+     * @return
+     */
+    public EditResponse edits(EditRequest editRequest) {
+        String url = "/v1/edits";
+        String body = jsonHttpTransport.post(url, JSON.toJSONString(editRequest));
+        EditResponse response = JSON.parseObject(body, EditResponse.class);
+        return response;
+    }
+
 }
