@@ -18,6 +18,8 @@ import com.alibaba.fastjson.JSON;
 import com.github.kevinsawicki.http.HttpRequest;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 /**
  * 企业微信 消息推送
  *
@@ -26,6 +28,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class WeComPusher {
+
+    public static void pushText(String mobileNo, String content, String webHookAddress) {
+        push(new TextWeComMsg(content, mobileNo), webHookAddress);
+    }
+
+    public static void pushText(List<String> mobileNos, String content, String webHookAddress) {
+        push(new TextWeComMsg(content, mobileNos), webHookAddress);
+    }
 
     /**
      * 推送企业微信消息
@@ -58,10 +68,4 @@ public class WeComPusher {
     }
 
 
-    public static void main(String[] args) {
-        TextWeComMsg weComMsg = new TextWeComMsg("这是推送的文本信息");
-        // 添加@的手机号码
-        weComMsg.addMentionedMobileNo("123412341234");
-        WeComPusher.push(weComMsg,"https://企业微信机器人地址");
-    }
 }
