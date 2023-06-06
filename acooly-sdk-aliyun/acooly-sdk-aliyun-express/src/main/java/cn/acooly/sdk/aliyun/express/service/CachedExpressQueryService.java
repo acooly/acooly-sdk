@@ -11,6 +11,7 @@ package cn.acooly.sdk.aliyun.express.service;
 import cn.acooly.sdk.aliyun.common.transport.HttpTransport;
 import cn.acooly.sdk.aliyun.express.AliyunExpressProperties;
 import cn.acooly.sdk.aliyun.express.domain.ExpressInfo;
+import com.acooly.core.utils.ObjectUtils;
 import com.acooly.core.utils.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +41,13 @@ public abstract class CachedExpressQueryService implements ExpressQueryService {
     @Override
     public ExpressInfo query(String mailNo, String expressCompanyCode, String mobileNo) {
         // 从缓存获取快递信息
-        ExpressInfo expressInfo = getCache(mailNo, expressCompanyCode);
+        ExpressInfo expressInfo = getCache(mailNo, expressCompanyCode,mobileNo);
         // 如果不存在，则请求快递查询
         if (expressInfo == null) {
             expressInfo = doRequest(mailNo, expressCompanyCode, mobileNo);
             // 如果查询成功，则设置缓存
             if (expressInfo != null) {
-                setCache(mailNo, expressCompanyCode, expressInfo);
+                setCache(mailNo, expressCompanyCode, expressInfo,mobileNo);
             }
         }
         doAfterQuery(expressInfo);
@@ -72,12 +73,12 @@ public abstract class CachedExpressQueryService implements ExpressQueryService {
      */
     protected abstract ExpressInfo doRequest(String mailNo, String expressCompanyCode, String mobileNo);
 
-    protected ExpressInfo getCache(String mailNo, String expressCompanyCode) {
-        return redisTemplate.opsForValue().get(getCacheKey(mailNo, expressCompanyCode));
+    protected ExpressInfo getCache(String mailNo, String expressCompanyCode,String mobileNo) {
+        return redisTemplate.opsForValue().get(getCacheKey(mailNo, expressCompanyCode,mobileNo));
     }
 
-    protected void setCache(String mailNo, String expressCompanyCode, ExpressInfo expressInfo) {
-        String key = getCacheKey(mailNo, expressCompanyCode);
+    protected void setCache(String mailNo, String expressCompanyCode, ExpressInfo expressInfo,String mobileNo) {
+        String key = getCacheKey(mailNo, expressCompanyCode,mobileNo);
         redisTemplate.opsForValue().set(key, expressInfo,
                 aliyunExpressProperties.getCache().getTimeout(),
                 TimeUnit.SECONDS);
@@ -91,8 +92,13 @@ public abstract class CachedExpressQueryService implements ExpressQueryService {
      * @param expressCompanyCode
      * @return
      */
-    protected String getCacheKey(String mailNo, String expressCompanyCode) {
-        return CACHE_KEY_PREFIX + "." + Strings.trimToEmpty(expressCompanyCode) + "." + mailNo;
+    protected String getCacheKey(String mailNo, String expressCompanyCode,String mobileNo) {
+        String key=CACHE_KEY_PREFIX + "." + Strings.trimToEmpty(expressCompanyCode) + "." + mailNo;
+        if(mailNo.startsWith("SF") && Strings.isNotEmpty(mobileNo)){
+            /** 顺丰单号"SF"开头；顺丰采用“mailNo+mobileNo”模式,存在手机号码输入错误,无法查询物流,输入正确可查询 */
+            key+="." + mobileNo;
+        }
+        return key;
     }
 
 }
