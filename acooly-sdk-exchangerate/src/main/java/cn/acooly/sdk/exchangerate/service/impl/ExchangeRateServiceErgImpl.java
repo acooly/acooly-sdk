@@ -174,16 +174,20 @@ public class ExchangeRateServiceErgImpl implements ExchangeRateService {
 
     protected BigDecimal doExchange(LegalCurrency from, LegalCurrency to) {
         try {
-            String url = domain + "/converter/" + from.code() + "/" + to.code() + "/1";
+            String url = domain + "/converter/" + from.code() + "-" + to.code();
             Document doc = Jsoup.connect(url)
                     .userAgent(defaultUserAgent)
                     .get();
-            Element resultEle = doc.selectFirst(".result-cur2");
+            Element resultEle = doc.selectFirst(".rate-to");
             if (resultEle != null) {
-                // 去除科学计数法的逗号
-                String toAmount = resultEle.selectFirst("span").text().replaceAll(",", "");
+                // 去除科学计数法的逗号，货币符号，货币名称等非数字内容
+                String toAmount = resultEle.text().replaceAll("[^\\d.]+", "");
                 BigDecimal amount = new BigDecimal(toAmount);
                 amount.setScale(4, BigDecimal.ROUND_HALF_UP);
+
+//                String toAmount = resultEle.selectFirst("span").text().replaceAll(",", "");
+//                BigDecimal amount = new BigDecimal(toAmount);
+//                amount.setScale(4, BigDecimal.ROUND_HALF_UP);
                 return amount;
             }
         } catch (Exception e) {
