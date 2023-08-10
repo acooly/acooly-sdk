@@ -10,6 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>acooly-sdk-aliyun-common</artifactId>
-    
+
+    <dependencies>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+    </dependencies>
 
 </project>

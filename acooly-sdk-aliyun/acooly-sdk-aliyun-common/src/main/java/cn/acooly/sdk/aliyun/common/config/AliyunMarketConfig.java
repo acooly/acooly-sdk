@@ -68,6 +68,11 @@ public class AliyunMarketConfig implements Serializable {
     private int readTimeout = 10 * 1000;
 
     /**
+     * 区域ID
+     */
+    private String regionId;
+
+    /**
      * 其他扩展参数
      */
     private Map<String, String> params = Maps.newHashMap();
