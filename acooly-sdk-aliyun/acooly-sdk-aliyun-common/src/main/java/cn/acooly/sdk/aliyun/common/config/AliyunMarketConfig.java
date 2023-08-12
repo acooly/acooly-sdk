@@ -20,7 +20,6 @@ import java.util.Map;
  * @author zhangpu
  * @date 2021-10-14 09:59
  */
-@Slf4j
 @Data
 public class AliyunMarketConfig implements Serializable {
 
@@ -32,19 +31,28 @@ public class AliyunMarketConfig implements Serializable {
     /**
      * App编码
      * 唯一标志应用身份，同时可作为简单认证的身份标志
+     * 如果没有配置，可复用`acooly.sdk.aliyun.app-code`（推荐）
+     *
+     * @see cn.acooly.sdk.aliyun.common.AliyunProperties
      */
-    @NotBlank
+    @Deprecated
     private String appCode;
     /**
      * 应用AccessKey
+     * 如果没有配置，可复用`acooly.sdk.aliyun.app-key`（推荐）
+     *
+     * @see cn.acooly.sdk.aliyun.common.AliyunProperties
      */
-    @NotBlank
+    @Deprecated
     private String appKey;
 
     /**
      * 应用SecretKey
+     * 如果没有配置，可复用`acooly.sdk.aliyun.secret-key`（推荐）
+     *
+     * @see cn.acooly.sdk.aliyun.common.AliyunProperties
      */
-    @NotBlank
+    @Deprecated
     private String appSecret;
 
 

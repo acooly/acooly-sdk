@@ -12,4 +12,6 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(value = AliyunProperties.PREFIX + ".enable", matchIfMissing = true)
 public class AliyunAutoConfig {
 
+    private AliyunProperties aliyunProperties;
+
 }

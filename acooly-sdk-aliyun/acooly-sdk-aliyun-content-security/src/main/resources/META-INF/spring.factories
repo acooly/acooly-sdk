@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.acooly.sdk.aliyun.content.security.ContentSecurityAutoConfig

@@ -25,7 +25,6 @@
     <modules>
         <module>acooly-sdk-aliyun-common</module>
         <module>acooly-sdk-aliyun-express</module>
-        <module>acooly-sdk-aliyun-content-security</module>
     </modules>
 
 
