@@ -41,7 +41,7 @@ public class CoinExplorerLocalTest {
     private FilecoinExplorerFilfoxImpl filecoinExplorerFilfox = new FilecoinExplorerFilfoxImpl();
 
     String PROXY_HOST = "127.0.0.1";
-    int PROXY_PORT = 19180;
+    int PROXY_PORT = 29290;
 
     @Before
     public void init() {
@@ -51,10 +51,15 @@ public class CoinExplorerLocalTest {
         System.setProperty("https.proxyPort", String.valueOf(PROXY_PORT));
 
 
+        // 设置拉取浏览器数据的超时时间为20秒（默认10秒）
+        coinApiProperties.getExplorer().setTimeoutSeconds(20);
+
         ethereumExplorerBlockchair.setExplorerCacheManager(explorerCacheManager);
         ethExplorerBtc.setExplorerCacheManager(explorerCacheManager);
 
         bitcoinExplorerBtc.setExplorerCacheManager(explorerCacheManager);
+//        bitcoinExplorerBtc.setCoinApiProperties(coinApiProperties);
+
         bitcoinExplorerBlockchair.setExplorerCacheManager(explorerCacheManager);
         bitcoinExplorerOklink.setExplorerCacheManager(explorerCacheManager);
 
