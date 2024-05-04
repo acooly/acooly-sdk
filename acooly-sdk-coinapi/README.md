@@ -42,8 +42,8 @@ acooly-sdk-coinapi
 ```java
 // 代理参数设置
 System.setProperty("https.proxySet","true");
-System.setProperty("https.proxyHost","xxx");
-System.setProperty("https.proxyPort","xxxx");
+        System.setProperty("https.proxyHost","xxx");
+        System.setProperty("https.proxyPort","xxxx");
 ```
 
 # 特性
@@ -93,7 +93,9 @@ public class CoinExplorerService {
 这里详细说明`coinmarketcap`SDK的使用。
 
 1. 定时拉取`coinmarketcap`的最新价格行情数据（`../quotes/latest`）,因为是免费接口，安全考虑，最快请控制到30分钟一次。
-2. 特别需要注意的是，组件提供的定时任务服务`cn.acooly.sdk.coinapi.platform.coinmarketcap.CoinmarketcapQuoteScheduler`默认通过配置文件控制频率，只支持单机，不支持分布式，如果是双节点，请控制多节点拉取的并发问题。强烈建议通过`acooly-component-schedule`分布式调度组件来配置定时任务。
+2. 特别需要注意的是，组件提供的定时任务服务`cn.acooly.sdk.coinapi.platform.coinmarketcap.CoinmarketcapQuoteScheduler`
+   默认通过配置文件控制频率，只支持单机，不支持分布式，如果是双节点，请控制多节点拉取的并发问题。强烈建议通过`acooly-component-schedule`
+   分布式调度组件来配置定时任务。
 3. 数据拉取后，统一存储到数据库中做缓存，实体：`CoinmarketcapQuotes`。
 4. 通过`cn.acooly.sdk.coinapi.platform.coinmarketcap.CoinmarketcapQuoteService`接口查询实时或历史的数字货币报价信息。
 
@@ -112,8 +114,6 @@ acooly.sdk.coinapi.coinmarketcap.scheduleEnable=true
 # [可选] 默认间隔30分钟（免费APIKEY一天333次）
 acooly.sdk.coinapi.coinmarketcap.scheduleInterval=1800000
 ```
-
-
 
 ## 行情数据
 
@@ -182,9 +182,41 @@ public interface CoinApiService extends Named, Ordered {
 }
 ```
 
->如果集成项目希望自己扩展数据提供方，可以在目标集成工程内实现`CoinApiService`接口，并通过`@Component`注入到Spring容器中，及可用。
+> 如果集成项目希望自己扩展数据提供方，可以在目标集成工程内实现`CoinApiService`接口，并通过`@Component`注入到Spring容器中，及可用。
+
+## AntPool收益计算器
+
+通过AntPool的API接口，提供AntPool的收益计算器封装，可以基于AntPool的数据，在线计算指定币种的挖矿收益情况。
+
+核心能力：提供与AntPool一致的挖矿收益计算，通过接口返回：指定币种和算力（手续费和难度为可选）的情况下，返回在AntPool挖矿收益情况（包括：BTC，币价，转换的CNY和USD收益等）。
+
+```ini
+
+### 注册AntPool账号和获取秘钥
+
+通过一下步骤注册或过去API调用需要的三个参数：userId（你的子账户名称）, APIKEY, SECRET
+1. 注册AntPool账号：[https://www.antpool.com/](https://www.antpool.com/)
+2. 创建子账号(userId)
+3. 在这里`https://www.antpool.com/userApi`点击`生成API`获取APIKEY和SECRET（主要要先记录，然后点击后面的`激活`）
+
+```java
+CoinCalcResult result = AntPoolApis.of(userId,APIKEY,SECRET)
+        .proxy(PROXY_HOST,PROXY_PORT)       //代理设置
+        .readTimeout(10).connectTimeout(10) //超时设置
+        .cache(5,1000)                      //缓存设置
+        .coinCalculator(14,"BTC");
+log.info("result: {}", JSON.toJSONString(result));
+```
+
+> 注意：AntPool的API接口是有流控要求的，但IP显示10分钟内不超过600次调用。
+
+也可参考单元测试：`acooly-sdk-test`模块的`cn.acooly.sdk.coinapi.antpool.AntPoolApisTest`
 
 # changelog
+
+## 5.2.0-SNAPSHOT.20240504
+
+* 2024-05-04 - 发布AntPool收益计算器，提供与AntPool一致的挖矿收益计算，通过接口返回：指定币种和算力（手续费和难度为可选）的情况下，返回在AntPool挖矿收益情况（包括：BTC，币价，转换的CNY和USD收益等）。 - [zhangpu] 4f57d3d
 
 ## 5.0.0-SNAPSHOT.20211227
 
@@ -195,9 +227,14 @@ public interface CoinApiService extends Named, Ordered {
 ## 5.0.0-SNAPSHOT.20210824
 
 * 2021-08-18 - 1、exchangerate网站已改版，更新获取数据的逻辑 2、完善rates方法 - [lilin] 545c1bc
-* 2021-08-23 - 完成数字货币浏览器的全网数据查询SDK的结构设计，统一接口，运行每个币种多个实现，只要其中一个实现正确获取数据则返回，同时支持针对浏览器查询数据的统一缓存配置（默认本地2分钟） - [zhangpu] 1bd6413
-* 2021-08-23 - 基于新的数字货币浏览器查询框架，开发了BTC和ETH的全网数据查询SDK封装，迁移原fil独立全网数据查询到explorer模块 - [zhangpu] 0a7a2a3
-* 2021-08-23 - 完成CoinExplorerService整合服务的开发，各币种可方便的直接调用，请在目标工程直接注入`CoinExplorerService`服务使用即可。 - [zhangpu] ae400e8
+* 2021-08-23 -
+  完成数字货币浏览器的全网数据查询SDK的结构设计，统一接口，运行每个币种多个实现，只要其中一个实现正确获取数据则返回，同时支持针对浏览器查询数据的统一缓存配置（默认本地2分钟） - [zhangpu]
+  1bd6413
+* 2021-08-23 -
+  基于新的数字货币浏览器查询框架，开发了BTC和ETH的全网数据查询SDK封装，迁移原fil独立全网数据查询到explorer模块 - [zhangpu]
+  0a7a2a3
+* 2021-08-23 - 完成CoinExplorerService整合服务的开发，各币种可方便的直接调用，请在目标工程直接注入`CoinExplorerService`
+  服务使用即可。 - [zhangpu] ae400e8
 * 2021-08-24 - 为同币种多个实现增加排序功能，通过@Ordered标签或接口 - [zhangpu] 1491577
 
 ## 5.0.0-SNAPSHOT.20210606
@@ -208,7 +245,8 @@ public interface CoinApiService extends Named, Ordered {
 
 ## 5.0.0-SNAPSHOT.20220724
 
-* 2022-07-24 - 优先级最高的btc.com在本地测试时需要"合理上网"配置代理，在单元测试中设置并测试通过`CoinExplorersTest`。 - [zhangpu] 4f644a3
+* 2022-07-24 - 优先级最高的btc.com在本地测试时需要"合理上网"
+  配置代理，在单元测试中设置并测试通过`CoinExplorersTest`。 - [zhangpu] 4f644a3
 * 2022-07-24 - 优化btc.com的BTC浏览器解析，增加当前价格；调整优先级为 btc.com -> blockchair(无PPS数据) - [zhangpu] cb1d13d
 
 ## 5.0.0-SNAPSHOT.20210604

@@ -98,6 +98,11 @@
             <version>2.56.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-cache</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

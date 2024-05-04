@@ -24,7 +24,10 @@ public enum CoinApiErrors implements Messageable {
 
     GATEWAY_SERVER_ERROR("GATEWAY_SERVER_ERROR", "网关错误"),
 
-    DATA_PARSE_ERROR("DATA_PARSE_ERROR", "解析错误");
+    DATA_PARSE_ERROR("DATA_PARSE_ERROR", "解析错误"),
+
+    RATE_LIMIT_ERROR("RATE_LIMIT_ERROR", "请求频率限制,10分钟内不超过600次"),
+    ;
 
     private final String code;
     private final String message;
