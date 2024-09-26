@@ -10,15 +10,38 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>acooly-sdk-aliyun-express</artifactId>
+    <name>acooly-sdk-aliyun-express</name>
+    <description>基于阿里云市场服务提供商易源数据的快递信息和轨迹查询接口的封装SDK</description>
+    <url>https://github.com/acooly/acooly-sdk</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zhangpu</id>
+            <name>Alex</name>
+            <email>zpuser@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/acooly/acooly-sdk</connection>
+        <developerConnection>scm:git:https://github.com/acooly/acooly-sdk.git</developerConnection>
+        <url>https://github.com/acooly/acooly-sdk</url>
+    </scm>
 
     <dependencies>
         <dependency>
             <groupId>cn.acooly</groupId>
             <artifactId>acooly-sdk-aliyun-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-cache</artifactId>
+            <version>${acooly.version}</version>
         </dependency>
     </dependencies>
 

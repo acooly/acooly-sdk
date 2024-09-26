@@ -11,12 +11,34 @@
     <artifactId>acooly-sdk-aliyun</artifactId>
     <packaging>pom</packaging>
 
+    <name>acooly-sdk-aliyun</name>
+    <description>阿里云提供的服务的SDK组件库</description>
+    <url>https://github.com/acooly/acooly-sdk</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zhangpu</id>
+            <name>Alex</name>
+            <email>zpuser@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/acooly/acooly-sdk</connection>
+        <developerConnection>scm:git:https://github.com/acooly/acooly-sdk.git</developerConnection>
+        <url>https://github.com/acooly/acooly-sdk</url>
+    </scm>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>cn.acooly</groupId>
                 <artifactId>acooly-sdk-aliyun-common</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

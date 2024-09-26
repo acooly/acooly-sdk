@@ -12,12 +12,31 @@
     <artifactId>acooly-sdk-filecoin</artifactId>
     <name>acooly-sdk-filecoin</name>
     <description>Acooly SDK for FileCoin</description>
+    <url>https://github.com/acooly/acooly-sdk</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zhangpu</id>
+            <name>Alex</name>
+            <email>zpuser@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/acooly/acooly-sdk</connection>
+        <developerConnection>scm:git:https://github.com/acooly/acooly-sdk.git</developerConnection>
+        <url>https://github.com/acooly/acooly-sdk</url>
+    </scm>
 
     <dependencies>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.76</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
 
@@ -37,6 +56,8 @@
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-test</artifactId>
+            <version>${acooly.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -11,11 +11,32 @@
 
     <artifactId>acooly-sdk-openai</artifactId>
     <name>acooly-sdk-openai</name>
+    <description>基于OpenAI官方接口封装的Java-SDK，提供常用的接口封装和代码调用文档说明。</description>
+    <url>https://github.com/acooly/acooly-sdk</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zhangpu</id>
+            <name>Alex</name>
+            <email>zpuser@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/acooly/acooly-sdk</connection>
+        <developerConnection>scm:git:https://github.com/acooly/acooly-sdk.git</developerConnection>
+        <url>https://github.com/acooly/acooly-sdk</url>
+    </scm>
 
     <dependencies>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
 

@@ -10,12 +10,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>acooly-sdk-common</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-common</artifactId>
-        </dependency>
-    </dependencies>
+    <name>acooly-sdk-common</name>
+    <description>SDK组件库的公共封装和工具。</description>
+    <url>https://github.com/acooly/acooly-sdk</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zhangpu</id>
+            <name>Alex</name>
+            <email>zpuser@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/acooly/acooly-sdk</connection>
+        <developerConnection>scm:git:https://github.com/acooly/acooly-sdk.git</developerConnection>
+        <url>https://github.com/acooly/acooly-sdk</url>
+    </scm>
 
 </project>

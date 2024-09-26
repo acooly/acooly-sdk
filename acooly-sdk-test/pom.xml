@@ -68,11 +68,11 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>cn.acooly</groupId>-->
-<!--            <artifactId>acooly-sdk-assemble</artifactId>-->
-<!--            <version>${project.parent.version}</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>cn.acooly</groupId>-->
+        <!--            <artifactId>acooly-sdk-assemble</artifactId>-->
+        <!--            <version>${project.parent.version}</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.acooly</groupId>
@@ -102,6 +102,25 @@
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-cache</artifactId>
         </dependency>
+
+        <!-- google drive API  -->
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-jetty</artifactId>
+            <version>1.34.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.34.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-drive</artifactId>
+            <version>v3-rev20240509-2.0.0</version>
+        </dependency>
+
+
 
     </dependencies>
 

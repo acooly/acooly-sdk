@@ -10,22 +10,45 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>acooly-sdk-coinapi</artifactId>
-
+    <name>acooly-sdk-coinapi</name>
+    <description>通过第三方借口或数据，提供实时常用的加密数字货币相关的数据接口能力。</description>
+    <url>https://github.com/acooly/acooly-sdk</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zhangpu</id>
+            <name>Alex</name>
+            <email>zpuser@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/acooly/acooly-sdk</connection>
+        <developerConnection>scm:git:https://github.com/acooly/acooly-sdk.git</developerConnection>
+        <url>https://github.com/acooly/acooly-sdk</url>
+    </scm>
     <dependencies>
 
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-web</artifactId>
+            <version>${acooly.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-mybatis</artifactId>
+            <version>${acooly.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>
@@ -40,7 +63,6 @@
             <version>2.6.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>

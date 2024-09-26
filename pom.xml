@@ -10,9 +10,30 @@
 
     <groupId>cn.acooly</groupId>
     <artifactId>acooly-sdk</artifactId>
-    <name>acooly-sdk Projects</name>
     <packaging>pom</packaging>
     <version>5.2.0</version>
+
+    <name>acooly-sdk</name>
+    <description>外部能力SDK组件库</description>
+    <url>https://github.com/acooly/acooly-sdk</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>zhangpu</id>
+            <name>Alex</name>
+            <email>zpuser@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/acooly/acooly-sdk</connection>
+        <developerConnection>scm:git:https://github.com/acooly/acooly-sdk.git</developerConnection>
+        <url>https://github.com/acooly/acooly-sdk</url>
+    </scm>
 
     <modules>
         <module>acooly-sdk-assemble</module>
@@ -26,19 +47,4 @@
         <module>acooly-sdk-wecom</module>
         <module>acooly-sdk-openai</module>
     </modules>
-
-
-<!--    <build>-->
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>.</directory>-->
-<!--                <includes>-->
-<!--                    <include>*.md</include>-->
-<!--                </includes>-->
-<!--            </resource>-->
-<!--            <resource>-->
-<!--                <directory>src/main/resources</directory>-->
-<!--            </resource>-->
-<!--        </resources>-->
-<!--    </build>-->
 </project>
