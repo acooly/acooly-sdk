@@ -5,7 +5,7 @@
     <parent>
         <groupId>cn.acooly</groupId>
         <artifactId>acooly-sdk</artifactId>
-        <version>5.2.0</version>
+        <version>5.2.0-202402_YS_RC1</version>
     </parent>
     
     <artifactId>acooly-sdk-exchangerate</artifactId>
